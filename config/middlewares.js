@@ -7,7 +7,6 @@ module.exports = [
       enabled: true,
       headers: "*",
       origin: [
-        "http://localhost:1337",
         "https://meet.iskconincedu.com",
         "https://chat.iskconincedu.com",
         "https://krishnaconsciousnesssociety.com",
