@@ -8,10 +8,10 @@ module.exports = [
       headers: "*",
       origin: [
         "http://localhost:1337",
-        "https://api.iskconincedu.com",
         "https://meet.iskconincedu.com",
         "https://chat.iskconincedu.com",
         "https://krishnaconsciousnesssociety.com",
+        "https://api.krishnaconsciousnesssociety.com",
         "https://www.krishnaconsciousnesssociety.com",
       ],
     },
