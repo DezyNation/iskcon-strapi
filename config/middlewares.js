@@ -10,6 +10,8 @@ module.exports = [
         "http://localhost:1337",
         "https://api.iskconincedu.com",
         "https://dev.iskconincedu.com",
+        "https://meet.iskconincedu.com",
+        "https://chat.iskconincedu.com",
         "https://iskconincedu.com",
       ],
     },
