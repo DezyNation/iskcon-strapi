@@ -72,14 +72,36 @@
       "type": "string"
     },
     "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "about": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "totalDonations": {
+      "type": "biginteger"
+    },
+    "kcExperience": {
+      "type": "integer"
+    },
+    "state": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "country": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
     }
   }
 }
