@@ -7,7 +7,7 @@ module.exports = [
       enabled: true,
       headers: ["*", "Authorization", "Content-Type", "Accept"],
       origin: [
-        // "*",
+        "*",
         "https://meet.iskconincedu.com",
         "https://chat.iskconincedu.com",
         "https://krishnaconsciousnesssociety.com",
