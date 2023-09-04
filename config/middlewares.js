@@ -5,8 +5,9 @@ module.exports = [
     name: "strapi::cors",
     config: {
       enabled: true,
-      headers: "*",
+      headers: ["*"],
       origin: [
+        // "*",
         "https://meet.iskconincedu.com",
         "https://chat.iskconincedu.com",
         "https://krishnaconsciousnesssociety.com",
