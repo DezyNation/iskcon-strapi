@@ -5,7 +5,7 @@ module.exports = [
     name: "strapi::cors",
     config: {
       enabled: true,
-      headers: ["*"],
+      headers: ["*", "Authorization", "Content-Type", "Accept"],
       origin: [
         // "*",
         "https://meet.iskconincedu.com",
