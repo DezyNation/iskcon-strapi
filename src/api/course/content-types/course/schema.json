@@ -15,7 +15,7 @@
     "title": {
       "type": "string"
     },
-    "tutor": {
+    "preacher": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
@@ -23,12 +23,7 @@
     "description": {
       "type": "richtext"
     },
-    "creator": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
-    },
-    "image_url": {
+    "posterUrl": {
       "type": "string"
     }
   }

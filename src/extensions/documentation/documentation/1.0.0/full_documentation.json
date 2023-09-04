@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-09-04T16:31:42.405Z"
+    "x-generation-date": "2023-09-04T22:43:01.850Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -493,7 +493,7 @@
               "title": {
                 "type": "string"
               },
-              "tutor": {
+              "preacher": {
                 "oneOf": [
                   {
                     "type": "integer"
@@ -507,18 +507,7 @@
               "description": {
                 "type": "string"
               },
-              "creator": {
-                "oneOf": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ],
-                "example": "string or id"
-              },
-              "image_url": {
+              "posterUrl": {
                 "type": "string"
               }
             }
@@ -577,7 +566,7 @@
           "title": {
             "type": "string"
           },
-          "tutor": {
+          "preacher": {
             "type": "object",
             "properties": {
               "data": {
@@ -1548,24 +1537,7 @@
           "description": {
             "type": "string"
           },
-          "creator": {
-            "type": "object",
-            "properties": {
-              "data": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "attributes": {
-                    "type": "object",
-                    "properties": {}
-                  }
-                }
-              }
-            }
-          },
-          "image_url": {
+          "posterUrl": {
             "type": "string"
           },
           "createdAt": {
@@ -2800,11 +2772,11 @@
               "description": {
                 "type": "string"
               },
-              "start_at": {
+              "startAt": {
                 "type": "string",
                 "format": "date-time"
               },
-              "end_at": {
+              "endAt": {
                 "type": "string",
                 "format": "date-time"
               },
@@ -2819,7 +2791,7 @@
                 ],
                 "example": "string or id"
               },
-              "creator": {
+              "coHost": {
                 "oneOf": [
                   {
                     "type": "integer"
@@ -2830,8 +2802,42 @@
                 ],
                 "example": "string or id"
               },
-              "image_url": {
+              "posterUrl": {
                 "type": "string"
+              },
+              "poster": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "example": "string or id"
+              },
+              "preacher": {
+                "oneOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "example": "string or id"
+              },
+              "qnaStatus": {
+                "type": "boolean"
+              },
+              "donationStatus": {
+                "type": "boolean"
+              },
+              "audioStatus": {
+                "type": "boolean"
+              },
+              "videoStatus": {
+                "type": "boolean"
               }
             }
           }
@@ -2892,11 +2898,11 @@
           "description": {
             "type": "string"
           },
-          "start_at": {
+          "startAt": {
             "type": "string",
             "format": "date-time"
           },
-          "end_at": {
+          "endAt": {
             "type": "string",
             "format": "date-time"
           },
@@ -2915,7 +2921,7 @@
                       "title": {
                         "type": "string"
                       },
-                      "tutor": {
+                      "preacher": {
                         "type": "object",
                         "properties": {
                           "data": {
@@ -3886,24 +3892,7 @@
                       "description": {
                         "type": "string"
                       },
-                      "creator": {
-                        "type": "object",
-                        "properties": {
-                          "data": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "attributes": {
-                                "type": "object",
-                                "properties": {}
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "image_url": {
+                      "posterUrl": {
                         "type": "string"
                       },
                       "createdAt": {
@@ -3954,7 +3943,7 @@
               }
             }
           },
-          "creator": {
+          "coHost": {
             "type": "object",
             "properties": {
               "data": {
@@ -3971,8 +3960,176 @@
               }
             }
           },
-          "image_url": {
+          "posterUrl": {
             "type": "string"
+          },
+          "poster": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "alternativeText": {
+                        "type": "string"
+                      },
+                      "caption": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "integer"
+                      },
+                      "height": {
+                        "type": "integer"
+                      },
+                      "formats": {},
+                      "hash": {
+                        "type": "string"
+                      },
+                      "ext": {
+                        "type": "string"
+                      },
+                      "mime": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number",
+                        "format": "float"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "previewUrl": {
+                        "type": "string"
+                      },
+                      "provider": {
+                        "type": "string"
+                      },
+                      "provider_metadata": {},
+                      "related": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "attributes": {
+                                  "type": "object",
+                                  "properties": {}
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "folder": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "attributes": {
+                                "type": "object",
+                                "properties": {}
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "folderPath": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "createdBy": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "attributes": {
+                                "type": "object",
+                                "properties": {}
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "updatedBy": {
+                        "type": "object",
+                        "properties": {
+                          "data": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "attributes": {
+                                "type": "object",
+                                "properties": {}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "preacher": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "properties": {}
+                  }
+                }
+              }
+            }
+          },
+          "qnaStatus": {
+            "type": "boolean"
+          },
+          "donationStatus": {
+            "type": "boolean"
+          },
+          "audioStatus": {
+            "type": "boolean"
+          },
+          "videoStatus": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",

@@ -18,10 +18,10 @@
     "description": {
       "type": "richtext"
     },
-    "start_at": {
+    "startAt": {
       "type": "datetime"
     },
-    "end_at": {
+    "endAt": {
       "type": "datetime"
     },
     "course": {
@@ -29,13 +29,45 @@
       "relation": "oneToOne",
       "target": "api::course.course"
     },
-    "creator": {
+    "coHost": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "image_url": {
+    "posterUrl": {
       "type": "string"
+    },
+    "poster": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "preacher": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "qnaStatus": {
+      "type": "boolean",
+      "default": true
+    },
+    "donationStatus": {
+      "type": "boolean",
+      "default": true
+    },
+    "audioStatus": {
+      "type": "boolean",
+      "default": true
+    },
+    "videoStatus": {
+      "type": "boolean",
+      "default": true
     }
   }
 }
