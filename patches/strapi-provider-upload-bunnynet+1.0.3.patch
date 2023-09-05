@@ -1,5 +1,5 @@
 diff --git a/node_modules/strapi-provider-upload-bunnynet/lib/index.js b/node_modules/strapi-provider-upload-bunnynet/lib/index.js
-index 306da15..7fbee41 100644
+index 306da15..df580bd 100644
 --- a/node_modules/strapi-provider-upload-bunnynet/lib/index.js
 +++ b/node_modules/strapi-provider-upload-bunnynet/lib/index.js
 @@ -4,13 +4,13 @@ const axios = require("axios")
@@ -25,7 +25,7 @@ index 306da15..7fbee41 100644
          const data = file.stream || Buffer.from(file.buffer, "binary")
          try {
 -          const response = await bunny_api.put(`${file.hash}${file.ext}`, data)
-+          const response = await bunny_api.put(`${file?.path ? file?.path : ""}${file.hash}${file.ext}`, data)
++          const response = await bunny_api.put(`${file?.path ? file?.path + "/" : ""}${file.hash}${file.ext}`, data)
  
            if (response.data.HttpCode !== 201) {
              reject(new Error(`Error uploading to Bunny.net: ${error.message}`))
