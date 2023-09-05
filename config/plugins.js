@@ -1,0 +1,26 @@
+module.exports = ({ env }) => ({
+  email: {
+    config: {
+      provider: env("EMAIL_PROVIDER", "nodemailer"),
+      providerOptions: {
+        host: env("SMTP_HOST", "smtp.example.com"),
+        port: env("SMTP_PORT", 587),
+        auth: {
+          user: env("SMTP_USERNAME"),
+          pass: env("SMTP_PASSWORD"),
+        },
+      },
+    },
+  },
+  upload: {
+    config: {
+      provider: "strapi-provider-upload-bunnynet",
+      providerOptions: {
+        api_key: env('BUNNY_API_KEY'),
+        storage_zone: env('BUNNY_STORAGE_ZONE'),
+        pull_zone: env('BUNNY_PULL_ZONE'),
+        host_name: env('BUNNY_HOST_NAME')
+      },
+    },
+  },
+});

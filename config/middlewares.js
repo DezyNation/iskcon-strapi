@@ -1,6 +1,24 @@
 module.exports = [
   "strapi::errors",
-  "strapi::security",
+  {
+    name: "strapi::security",
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          "connect-src": ["'self'", "https:"],
+          "img-src": ["'self'", "data:", "blob:", process.env.BUNNY_PULL_ZONE],
+          "media-src": [
+            "'self'",
+            "data:",
+            "blob:",
+            process.env.BUNNY_PULL_ZONE,
+          ],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
   {
     name: "strapi::cors",
     config: {
