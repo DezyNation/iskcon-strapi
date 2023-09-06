@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "questions",
+  "info": {
+    "singularName": "question",
+    "pluralName": "questions",
+    "displayName": "Question",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "session": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::session.session"
+    },
+    "isAnswered": {
+      "type": "boolean",
+      "default": false
+    },
+    "beingAnswered": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

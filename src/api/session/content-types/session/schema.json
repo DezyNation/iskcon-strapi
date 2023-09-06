@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -76,6 +76,9 @@
       "type": "string"
     },
     "hostedLink": {
+      "type": "string"
+    },
+    "slug": {
       "type": "string"
     }
   }
