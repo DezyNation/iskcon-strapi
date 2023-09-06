@@ -102,6 +102,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::country.country"
+    },
+    "rcToken": {
+      "type": "string",
+      "unique": true,
+      "private": true
     }
   }
 }
