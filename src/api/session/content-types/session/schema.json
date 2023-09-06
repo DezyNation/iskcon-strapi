@@ -68,6 +68,15 @@
     "videoStatus": {
       "type": "boolean",
       "default": true
+    },
+    "tags": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "hostedLink": {
+      "type": "string"
     }
   }
 }

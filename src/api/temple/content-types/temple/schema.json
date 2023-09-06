@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "temples",
+  "info": {
+    "singularName": "temple",
+    "pluralName": "temples",
+    "displayName": "temple"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string"
+    },
+    "president": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
