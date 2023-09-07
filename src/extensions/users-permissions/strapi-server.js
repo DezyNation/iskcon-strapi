@@ -12,7 +12,7 @@ module.exports = (plugin) => {
           fields: ["id", "rcToken"],
         }
       );
-      ctx.body = { token: result?.rcToken };
+      ctx.body = { token: result?.rcToken, loginToken: result?.rcToken };
     } catch (error) {
       ctx.body = error;
     }
@@ -20,22 +20,15 @@ module.exports = (plugin) => {
 
   plugin.controllers.user.rcRegister = async (ctx) => {
     try {
-      const { id } = ctx.state.user;
-      const { password } = ctx.request.body;
-      const user = await strapi.entityService.findOne(
-        "plugin::users-permissions.user",
-        id,
-        {
-          fields: ["id", "name", "username", "email"],
-        }
-      );
+      const { password, username, email, name } = ctx.request.body;
+      console.log(ctx.request.body);
       const result = await axios.post(
         `${process.env.CHAT_BASE_URL}/api/v1/users.create`,
         {
-          username: user?.username,
-          email: user?.email,
+          username: username,
+          email: email,
           password: password,
-          name: user?.name || `User ${user?.id}`,
+          name: name || `New User`,
         },
         {
           headers: {
@@ -46,7 +39,7 @@ module.exports = (plugin) => {
       );
       console.log("RC register log");
       console.log(result);
-      ctx.body = result;
+      ctx.body = result.data;
     } catch (error) {
       ctx.body = error;
     }
@@ -54,43 +47,48 @@ module.exports = (plugin) => {
 
   plugin.controllers.user.rcLogin = async (ctx) => {
     try {
-      const { id } = ctx.state.user;
-      const { password } = ctx.request.body;
-      const user = await strapi.entityService.findOne(
+      const { username, password } = ctx.request.body;
+      const user = await strapi.entityService.findMany(
         "plugin::users-permissions.user",
-        id,
         {
-          fields: ["id", "name", "username", "email"],
+          fields: ["id"],
+          filters: {
+            username: username,
+          },
         }
       );
-      const result = await axios
-        .post(
-          `${process.env.CHAT_BASE_URL}/api/v1/login`,
-          {
-            username: user?.username,
-            password: password,
+      if (!user.length) {
+        ctx.status = 404;
+        ctx.body = {
+          error: { message: "User not found" },
+        };
+        return;
+      }
+      const result = await axios.post(
+        `${process.env.CHAT_BASE_URL}/api/v1/login`,
+        {
+          username: username,
+          password: password,
+        },
+        {
+          headers: {
+            "X-Auth-Token": process.env.RC_AUTH_TOKEN,
+            "X-User-Id": process.env.RC_USER_ID,
           },
-          {
-            headers: {
-              "X-Auth-Token": process.env.RC_AUTH_TOKEN,
-              "X-User-Id": process.env.RC_USER_ID,
-            },
-          }
-        )
-        .then(async (res) => {
-          await strapi.entityService.update(
-            "plugin::users-permissions.user",
-            id,
-            {
-              data: {
-                rcToken: res.data?.data?.authToken,
-              },
-            }
-          );
-        });
+        }
+      );
+      await strapi.entityService.update(
+        "plugin::users-permissions.user",
+        user[0]?.id,
+        {
+          data: {
+            rcToken: result.data?.data?.authToken,
+          },
+        }
+      );
       console.log("RC login log");
       console.log(result);
-      ctx.body = result;
+      ctx.body = result.data;
     } catch (error) {
       ctx.body = error;
     }
