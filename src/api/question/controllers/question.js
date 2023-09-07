@@ -1,8 +1,13 @@
 "use strict";
+const Pusher = require("pusher");
 
-/**
- * question controller
- */
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_APP_KEY,
+  secret: process.env.PUSHER_SECRET_KEY,
+  useTLS: true,
+  cluster: "ap2", // optional, defaults to api.pusherapp.com
+});
 
 const { createCoreController } = require("@strapi/strapi").factories;
 
@@ -11,60 +16,93 @@ module.exports = createCoreController(
   ({ strapi }) => ({
     ask: async (ctx, next) => {
       try {
-        const {user} = ctx.state
-        const {question} = ctx.request.body
-        const {sessionId} = ctx.params
-        const result = await strapi.entityService.create("api::question.question", {
+        const { user } = ctx.state;
+        const { question } = ctx.request.body;
+        const { sessionId } = ctx.params;
+        const result = await strapi.entityService.create(
+          "api::question.question",
+          {
             data: {
-                user: {
-                    connect: [user.id]
-                },
-                session: {
-                    connect : [sessionId]
-                },
-                question: question
+              user: {
+                connect: [user.id],
+              },
+              session: {
+                connect: [sessionId],
+              },
+              question: question,
             },
             populate: {
-                user: {
-                    fields: ['name', 'username'],
-                    populate: {
-                        avatar: {
-                            fields: ['url']
-                        }
-                    }
-                }
-            }
-        })
-        ctx.body = result 
+              user: {
+                fields: ["name", "username"],
+                populate: {
+                  avatar: {
+                    fields: ["url"],
+                  },
+                },
+              },
+            },
+          }
+        );
+        await pusher.trigger(`session-${sessionId}`, "messageUpdate", {
+          msg: "newMsg",
+        });
+        ctx.body = result;
       } catch (error) {
-        ctx.body = error
+        ctx.body = error;
       }
     },
     view: async (ctx, next) => {
       try {
-        const {sessionId} = ctx.params
-        const result = await strapi.entityService.findMany("api::question.question", {
-            fields: ['question', 'beingAnswered', 'isAnswered', 'createdAt'],
+        const { sessionId } = ctx.params;
+        const result = await strapi.entityService.findMany(
+          "api::question.question",
+          {
+            fields: ["question", "beingAnswered", "isAnswered", "createdAt"],
             filters: {
-                session: {
-                    id: sessionId
-                }
+              session: {
+                id: sessionId,
+              },
             },
             populate: {
-                user: {
-                    fields: ['name', 'username'],
-                    populate: {
-                        avatar: {
-                            fields: ['url']
-                        }
-                    }
-                }
-            }
-        })
+              user: {
+                fields: ["name", "username"],
+                populate: {
+                  avatar: {
+                    fields: ["url"],
+                  },
+                },
+              },
+            },
+          }
+        );
+        ctx.body = result;
+      } catch (error) {
+        ctx.body = error;
+      }
+    },
+    updateQuestion: async (ctx, next) => {
+      try {
+        const { data } = ctx.request.body;
+        const { id } = ctx.params;
+        const result = await strapi.entityService.update(
+          "api::question.question",
+          parseInt(id),
+          {
+            data: data,
+            populate: {
+              session: {
+                fields: ["id"],
+              },
+            },
+          }
+        );
+        await pusher.trigger(`session-${result?.session?.id}`, "messageUpdate", {
+          msg: "msgUpdate"
+        });
         ctx.body = result
       } catch (error) {
         ctx.body = error
       }
-    }
+    },
   })
 );

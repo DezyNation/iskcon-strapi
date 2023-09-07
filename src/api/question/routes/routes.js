@@ -17,6 +17,15 @@ module.exports = {
                 policies: [],
                 middlewares: [],
             },
+        },
+        {
+            method: 'PUT',
+            path: '/sessions/questions/update/:id',
+            handler: 'question.updateQuestion',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
         }
     ]
 }

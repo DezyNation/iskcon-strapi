@@ -6,7 +6,7 @@ const pusher = new Pusher({
   key: process.env.PUSHER_APP_KEY,
   secret: process.env.PUSHER_SECRET_KEY,
   useTLS: true,
-  cluster: 'ap2', // optional, defaults to api.pusherapp.com
+  cluster: "ap2", // optional, defaults to api.pusherapp.com
 });
 
 const now = new Date();
@@ -377,7 +377,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
         }
       );
       await pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
-        status: "ended"
+        status: "ended",
       });
       ctx.body = result;
     } catch (error) {
@@ -387,7 +387,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
   updateSessionData: async (ctx, next) => {
     try {
       const { sessionId, data } = ctx.request.body;
-      const result = strapi.entityService.update(
+      const result = await strapi.entityService.update(
         "api::session.session",
         parseInt(sessionId),
         {
@@ -398,13 +398,14 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
             "audioStatus",
             "videoStatus",
             "donationStatus",
-            "status"
+            "status",
           ],
         }
       );
+      
       await pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
         data: data,
-        status: result?.status
+        status: result?.status,
       });
       ctx.body = result;
     } catch (error) {
