@@ -24,16 +24,16 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
           ...ctx.request.body,
           ...(parseInt(coHost) > 1 && {
             coHost: {
-              connect: [coHost],
+              connect: [parseInt(coHost)],
             },
           }),
           startAt: startAt ? startAt : now.toISOString(),
           preacher: {
-            connect: [preacher],
+            connect: [parseInt(preacher)],
           },
           ...(parseInt(course) > 1 && {
             course: {
-              connect: [course],
+              connect: [parseInt(course)],
             },
           }),
           hostedLink: `${process.env.CONFERENCE_BASE_URL}/join/${slug}`,
@@ -54,7 +54,15 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
             creator: {
               connect: [user.id],
             },
-            description: `<i>Hare Krishna</i><br/> Join an upcoming session <b>${title}</b> with ${preacherInfo?.name} at ${startAt}`,
+            description: `<i>Hare Krishna</i><br/> Join an upcoming session <b>${title}</b> with ${
+              preacherInfo?.name
+            } at ${new Date(startAt).toLocaleString(undefined, {
+              timeZone: "Asia/Kolkata",
+            })} <br/>
+            Join with <a href="${
+              process.env.FRONTEND_URL
+            }/dashboard/sessions/join/${slug}" target="_blank">this link</a>
+            `,
           },
         });
       }

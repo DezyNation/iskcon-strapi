@@ -10,8 +10,8 @@ module.exports = ({ env }) => ({
           pass: env("SMTP_PASSWORD"),
         },
         settings: {
-            defaultFrom: env("SMTP_USERNAME"),
-        }
+          defaultFrom: env("SMTP_USERNAME"),
+        },
       },
     },
   },
@@ -19,16 +19,24 @@ module.exports = ({ env }) => ({
     config: {
       provider: "strapi-provider-upload-bunnynet",
       providerOptions: {
-        api_key: env('BUNNY_API_KEY'),
-        storage_zone: env('BUNNY_STORAGE_ZONE'),
-        pull_zone: env('BUNNY_PULL_ZONE'),
-        host_name: env('BUNNY_HOST_NAME')
+        api_key: env("BUNNY_API_KEY"),
+        storage_zone: env("BUNNY_STORAGE_ZONE"),
+        pull_zone: env("BUNNY_PULL_ZONE"),
+        host_name: env("BUNNY_HOST_NAME"),
       },
     },
   },
-  'strapi-plugin-populate-deep': {
+  "strapi-plugin-populate-deep": {
     config: {
       defaultDepth: 5, // Default is 5
-    }
+    },
+  },
+  "users-permissions": {
+    config: {
+      ratelimit: {
+        interval: 60000,
+        max: 100000,
+      },
+    },
   },
 });
