@@ -30,7 +30,7 @@ module.exports = (plugin) => {
         }
       );
       const result = await axios.post(
-        `${process.env.CHAT_BASE_URL}/api/v1/users.register`,
+        `${process.env.CHAT_BASE_URL}/api/v1/users.create`,
         {
           username: user?.username,
           email: user?.email,
