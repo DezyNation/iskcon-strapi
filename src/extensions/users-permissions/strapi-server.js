@@ -29,13 +29,19 @@ module.exports = (plugin) => {
           fields: ["id", "name", "username", "email"],
         }
       );
-      const result = axios.post(
+      const result = await axios.post(
         `${process.env.CHAT_BASE_URL}/api/v1/users.register`,
         {
           username: user?.username,
           email: user?.email,
           pass: password,
           name: user?.name || `User ${user?.id}`,
+        },
+        {
+          headers: {
+            "X-Auth-Token": process.env.RC_AUTH_TOKEN,
+            "X-User-Id": process.env.RC_USER_ID,
+          },
         }
       );
       console.log("RC register log");
@@ -57,11 +63,20 @@ module.exports = (plugin) => {
           fields: ["id", "name", "username", "email"],
         }
       );
-      const result = axios
-        .post(`${process.env.CHAT_BASE_URL}/api/v1/login`, {
-          username: user?.username,
-          password: password,
-        })
+      const result = await axios
+        .post(
+          `${process.env.CHAT_BASE_URL}/api/v1/login`,
+          {
+            username: user?.username,
+            password: password,
+          },
+          {
+            headers: {
+              "X-Auth-Token": process.env.RC_AUTH_TOKEN,
+              "X-User-Id": process.env.RC_USER_ID,
+            },
+          }
+        )
         .then(async (res) => {
           await strapi.entityService.update(
             "plugin::users-permissions.user",
