@@ -34,7 +34,7 @@ module.exports = (plugin) => {
         {
           username: user?.username,
           email: user?.email,
-          pass: password,
+          password: password,
           name: user?.name || `User ${user?.id}`,
         },
         {
