@@ -1,10 +1,15 @@
 "use strict";
+const Pusher = require("pusher");
 
-const { default: axios } = require("axios");
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_APP_KEY,
+  secret: process.env.PUSHER_SECRET_KEY,
+  useTLS: true,
+  cluster: 'ap2', // optional, defaults to api.pusherapp.com
+});
 
 const now = new Date();
-const yesterday = now.setDate(now.getDate() - 1);
-const sixHoursAgo = new Date(now.getTime() - 6 * 60 * 60 * 1000);
 
 /**
  * session controller
@@ -36,6 +41,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
               connect: [parseInt(course)],
             },
           }),
+          status: intent == "create" ? "ongoing" : "upcoming",
           hostedLink: `${process.env.CONFERENCE_BASE_URL}/join/${slug}`,
         },
       });
@@ -91,8 +97,8 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
             "slug",
           ],
           filters: {
-            startAt: {
-              $gte: now.toISOString(),
+            status: {
+              $ne: "ended",
             },
           },
           populate: {
@@ -235,9 +241,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
             "slug",
           ],
           filters: {
-            startAt: {
-              $gt: now.toISOString(),
-            },
+            status: "upcoming",
           },
           populate: {
             course: {
@@ -298,14 +302,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
             "slug",
           ],
           filters: {
-            $and: [
-              {
-                startAt: { $gte: sixHoursAgo.toISOString() },
-              },
-              {
-                startAt: { $lte: now.toISOString() },
-              },
-            ],
+            status: "ongoing",
           },
           populate: {
             course: {
@@ -343,6 +340,72 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
           },
         }
       );
+      ctx.body = result;
+    } catch (error) {
+      ctx.body = error;
+    }
+  },
+  startSession: async (ctx, next) => {
+    try {
+      const { sessionId } = ctx.request.body;
+      const result = strapi.entityService.update(
+        "api::session.session",
+        parseInt(sessionId),
+        {
+          data: {
+            status: "ongoing",
+          },
+          fields: ["slug"],
+        }
+      );
+      ctx.body = result;
+    } catch (error) {
+      ctx.body = error;
+    }
+  },
+  stopSession: async (ctx, next) => {
+    try {
+      const { sessionId } = ctx.request.body;
+      const result = strapi.entityService.update(
+        "api::session.session",
+        parseInt(sessionId),
+        {
+          data: {
+            status: "ended",
+          },
+          fields: ["slug"],
+        }
+      );
+      await pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
+        status: "ended"
+      });
+      ctx.body = result;
+    } catch (error) {
+      ctx.body = error;
+    }
+  },
+  updateSessionData: async (ctx, next) => {
+    try {
+      const { sessionId, data } = ctx.request.body;
+      const result = strapi.entityService.update(
+        "api::session.session",
+        parseInt(sessionId),
+        {
+          data: data,
+          fields: [
+            "slug",
+            "qnaStatus",
+            "audioStatus",
+            "videoStatus",
+            "donationStatus",
+            "status"
+          ],
+        }
+      );
+      await pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
+        data: data,
+        status: result?.status
+      });
       ctx.body = result;
     } catch (error) {
       ctx.body = error;

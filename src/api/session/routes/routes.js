@@ -45,5 +45,32 @@ module.exports = {
                 middlewares: [],
             },
         },
+        {
+            method: 'POST',
+            path: '/sessions/start-session',
+            handler: 'session.startSession',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
+        {
+            method: 'POST',
+            path: '/sessions/stop-session',
+            handler: 'session.stopSession',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
+        {
+            method: 'PUT',
+            path: '/sessions/update-session',
+            handler: 'session.updateSessionData',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
     ]
 }

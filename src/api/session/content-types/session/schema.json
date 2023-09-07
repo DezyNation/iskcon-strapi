@@ -80,6 +80,9 @@
     },
     "slug": {
       "type": "string"
+    },
+    "status": {
+      "type": "string"
     }
   }
 }
