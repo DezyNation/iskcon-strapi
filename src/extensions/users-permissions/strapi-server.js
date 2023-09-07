@@ -38,6 +38,8 @@ module.exports = (plugin) => {
           name: user?.name || `User ${user?.id}`,
         }
       );
+      console.log("RC register log");
+      console.log(result);
       ctx.body = result;
     } catch (error) {
       ctx.body = error;
@@ -71,6 +73,8 @@ module.exports = (plugin) => {
             }
           );
         });
+      console.log("RC login log");
+      console.log(result);
       ctx.body = result;
     } catch (error) {
       ctx.body = error;
