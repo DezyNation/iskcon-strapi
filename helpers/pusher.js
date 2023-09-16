@@ -7,6 +7,7 @@ const pusher = new Pusher({
   secret: process.env.PUSHER_SECRET_KEY,
   useTLS: true,
   host: process.env.PUSHER_BASE_URL,
+  port: "443",
 });
 
 module.exports = pusher;
