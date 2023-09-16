@@ -1,13 +1,6 @@
 "use strict";
-const Pusher = require("pusher");
 
-const pusher = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_APP_KEY,
-  secret: process.env.PUSHER_SECRET_KEY,
-  useTLS: true,
-  cluster: "ap2", // optional, defaults to api.pusherapp.com
-});
+const { default: pusher } = require("../../../../helpers/pusher");
 
 const { createCoreController } = require("@strapi/strapi").factories;
 
