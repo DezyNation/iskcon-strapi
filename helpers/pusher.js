@@ -1,4 +1,4 @@
-"use client";
+"use strict";
 const Pusher = require("pusher");
 
 const pusher = new Pusher({
