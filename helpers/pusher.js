@@ -1,4 +1,4 @@
-"use client"
+"use client";
 const Pusher = require("pusher");
 
 const pusher = new Pusher({
@@ -9,4 +9,4 @@ const pusher = new Pusher({
   host: process.env.PUSHER_BASE_URL,
 });
 
-export default pusher
+module.exports = pusher;
