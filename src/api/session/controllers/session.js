@@ -405,7 +405,8 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
       }).catch(err =>{
         console.log("Err sending pusher event sessionUpdate")
         console.log(err)
-      });;
+      });
+      
       ctx.body = result;
     } catch (error) {
       ctx.body = error;

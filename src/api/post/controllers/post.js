@@ -33,13 +33,16 @@ module.exports = createCoreController("api::post.post", ({ strapi }) => ({
         fields: ["description", "createdAt"],
         populate: {
           creator: {
-            fields: ["id", "name"],
+            fields: ["id", "name", "username"],
             populate: {
               avatar: {
                 fields: ["url"],
               },
             },
           },
+        },
+        sort: {
+          createdAt: "desc",
         },
       });
       ctx.body = result;
