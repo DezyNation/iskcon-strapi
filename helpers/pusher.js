@@ -1,4 +1,3 @@
-"use strict";
 const Pusher = require("pusher");
 
 const pusher = new Pusher({
@@ -7,8 +6,7 @@ const pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID,
   secret: process.env.PUSHER_SECRET_KEY,
   port: process.env.PUSHER_PORT,
-  cluster: "ap2",
-  useTLS: true,
+  cluster: "ap2"
 });
 
 module.exports = pusher;
