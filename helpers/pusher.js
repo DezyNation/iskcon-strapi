@@ -6,6 +6,7 @@ const pusher = new Pusher({
   host: process.env.PUSHER_BASE_URL,
   appId: process.env.PUSHER_APP_ID,
   secret: process.env.PUSHER_SECRET_KEY,
+  port: process.env.PUSHER_PORT,
   cluster: "ap2",
   useTLS: true,
 });
