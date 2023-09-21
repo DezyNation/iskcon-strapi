@@ -396,17 +396,14 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
         }
       );
       
-      await pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
+      const pusherRes = pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
         data: data,
         status: result?.status,
-      }).then(res =>{
-        console.log("Sent pusher event sessionUpdate")
-        console.log(res)
-      }).catch(err =>{
-        console.log("Err sending pusher event sessionUpdate")
-        console.log(err)
-      });
-      
+      })
+      console.log("Pusher Result below")
+      console.log(pusherRes)
+      console.log("--------------------")
+
       ctx.body = result;
     } catch (error) {
       ctx.body = error;
