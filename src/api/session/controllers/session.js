@@ -1,6 +1,16 @@
 "use strict";
 
-const { default: pusher } = require("../../../../helpers/pusher");
+const Pusher = require("pusher");
+
+// const { default: pusher } = require("../../../../helpers/pusher");
+const pusher = new Pusher({
+  key: process.env.PUSHER_APP_KEY,
+  host: process.env.PUSHER_BASE_URL,
+  appId: process.env.PUSHER_APP_ID,
+  secret: process.env.PUSHER_SECRET_KEY,
+  port: process.env.PUSHER_PORT,
+  cluster: "ap2"
+});
 
 const now = new Date();
 
@@ -397,7 +407,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
       );
       
       console.log("Initiating Pusher for session ", sessionId)
-      pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
+      await pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
         data: "data",
         status: "result?.status",
       }).then(pusherRes => {

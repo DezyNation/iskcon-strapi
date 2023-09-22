@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "account_delete_requests",
+  "info": {
+    "singularName": "account-delete-request",
+    "pluralName": "account-delete-requests",
+    "displayName": "Account Delete Request"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "reason": {
+      "type": "text"
+    },
+    "deletedAt": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending",
+        "In Progress",
+        "Account Deleted",
+        "Request Cancelled"
+      ]
+    },
+    "adminRemarks": {
+      "type": "text"
+    }
+  }
+}
