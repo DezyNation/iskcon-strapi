@@ -1,6 +1,6 @@
 "use strict";
 
-const { default: pusher } = require("../../../../config/pusher");
+const pusher = require("../../../../config/pusher");
 // const Pusher = require("pusher");
 
 // const pusher = new Pusher({
@@ -413,6 +413,9 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
         console.log("Pusher triggered successfully!");
       } catch (err) {
         console.log("Error in Pusher");
+        console.log(process.env.PUSHER_APP_KEY)
+        console.log(process.env.PUSHER_APP_ID)
+        console.log(process.env.PUSHER_SECRET_KEY)
         console.log(err);
       }
       ctx.body = result;
