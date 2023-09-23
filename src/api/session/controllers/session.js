@@ -413,7 +413,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
         console.log("Pusher triggered successfully!");
       } catch (err) {
         console.log("Error in Pusher");
-        console.log(pusher);
+        console.log(err);
       }
       ctx.body = result;
     } catch (error) {
