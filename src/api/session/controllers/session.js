@@ -1,6 +1,6 @@
 "use strict";
 
-const { default: pusher } = require("../../../../helpers/pusher");
+const { default: pusher } = require("../../../../config/pusher");
 // const Pusher = require("pusher");
 
 // const pusher = new Pusher({
