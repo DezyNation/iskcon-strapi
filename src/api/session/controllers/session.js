@@ -407,18 +407,12 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
       console.log("Initiating Pusher for session ", sessionId);
       try {
         await pusher.trigger(`session-${sessionId}`, "sessionUpdate", {
-          data: "data",
-          status: "result?.status",
+          data: data,
+          status: result?.status,
         });
         console.log("Pusher triggered successfully!");
-        console.log(process.env.PUSHER_APP_KEY)
-        console.log(process.env.PUSHER_APP_ID)
-        console.log(process.env.PUSHER_SECRET_KEY)
       } catch (err) {
         console.log("Error in Pusher");
-        console.log(process.env.PUSHER_APP_KEY)
-        console.log(process.env.PUSHER_APP_ID)
-        console.log(process.env.PUSHER_SECRET_KEY)
         console.log(err);
       }
       ctx.body = result;
