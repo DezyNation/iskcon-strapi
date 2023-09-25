@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "session_participants",
+  "info": {
+    "singularName": "session-participant",
+    "pluralName": "session-participants",
+    "displayName": "Session Participant",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "session": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::session.session"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "joinCount": {
+      "type": "integer",
+      "default": 1
+    },
+    "leftAt": {
+      "type": "datetime"
+    }
+  }
+}

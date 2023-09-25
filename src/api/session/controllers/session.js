@@ -1,14 +1,6 @@
 "use strict";
 
 const pusher = require("../../../../config/pusher");
-// const Pusher = require("pusher");
-
-// const pusher = new Pusher({
-//   key: process.env.PUSHER_APP_KEY,
-//   appId: process.env.PUSHER_APP_ID,
-//   secret: process.env.PUSHER_SECRET_KEY,
-//   cluster: "ap2"
-// });
 
 const now = new Date();
 

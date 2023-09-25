@@ -4,7 +4,8 @@
   "info": {
     "singularName": "temple",
     "pluralName": "temples",
-    "displayName": "temple"
+    "displayName": "Temple",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
