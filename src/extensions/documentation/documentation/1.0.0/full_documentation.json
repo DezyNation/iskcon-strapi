@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-09-25T21:06:53.578Z"
+    "x-generation-date": "2023-09-26T18:50:11.269Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5436,10 +5436,10 @@
                       "donationStatus": {
                         "type": "boolean"
                       },
-                      "audioStatus": {
+                      "micStatus": {
                         "type": "boolean"
                       },
-                      "videoStatus": {
+                      "cameraStatus": {
                         "type": "boolean"
                       },
                       "tags": {
@@ -5653,10 +5653,10 @@
               "donationStatus": {
                 "type": "boolean"
               },
-              "audioStatus": {
+              "micStatus": {
                 "type": "boolean"
               },
-              "videoStatus": {
+              "cameraStatus": {
                 "type": "boolean"
               },
               "tags": {
@@ -6966,10 +6966,10 @@
           "donationStatus": {
             "type": "boolean"
           },
-          "audioStatus": {
+          "micStatus": {
             "type": "boolean"
           },
-          "videoStatus": {
+          "cameraStatus": {
             "type": "boolean"
           },
           "tags": {
@@ -7090,6 +7090,16 @@
               "leftAt": {
                 "type": "string",
                 "format": "date-time"
+              },
+              "joinedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "micStatus": {
+                "type": "boolean"
+              },
+              "cameraStatus": {
+                "type": "boolean"
               }
             }
           }
@@ -8395,10 +8405,10 @@
                       "donationStatus": {
                         "type": "boolean"
                       },
-                      "audioStatus": {
+                      "micStatus": {
                         "type": "boolean"
                       },
-                      "videoStatus": {
+                      "cameraStatus": {
                         "type": "boolean"
                       },
                       "tags": {
@@ -8487,6 +8497,16 @@
           "leftAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "joinedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "micStatus": {
+            "type": "boolean"
+          },
+          "cameraStatus": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",

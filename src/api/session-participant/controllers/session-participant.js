@@ -17,7 +17,16 @@ module.exports = createCoreController(
         const participants = await strapi.entityService.findMany(
           "api::session-participant.session-participant",
           {
-            fields: ["id", "createdAt", "updatedAt", "joinCount", "leftAt"],
+            fields: [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "joinCount",
+              "leftAt",
+              "joinedAt",
+              "micStatus",
+              "cameraStatus",
+            ],
             filters: {
               session: sessionId,
             },
@@ -40,12 +49,22 @@ module.exports = createCoreController(
     },
     addMe: async (ctx, next) => {
       try {
+        const now = new Date();
         const { sessionId } = ctx.body;
         const { user } = ctx.state;
         const alreadyJoined = await strapi.entityService.findMany(
           "api::session-participant.session-participant",
           {
-            fields: ["id", "createdAt", "updatedAt", "joinCount", "leftAt"],
+            fields: [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "joinCount",
+              "leftAt",
+              "joinedAt",
+              "micStatus",
+              "cameraStatus",
+            ],
             filters: {
               $and: [
                 {
@@ -60,43 +79,62 @@ module.exports = createCoreController(
               user: {
                 fields: ["id", "username", "name"],
                 avatar: {
-                  fields: ["id", "url"],
+                  fields: ["url"],
                 },
               },
             },
           }
         );
 
+        // If the user has already joined the session
         if (alreadyJoined?.length) {
-          const updateJoinCount = await strapi.entityService.update(
+          const updatedParticipant = await strapi.entityService.update(
             "api::session-participant.session-participant",
             alreadyJoined[0]?.id,
             {
+              fields: [
+                "id",
+                "createdAt",
+                "updatedAt",
+                "joinCount",
+                "leftAt",
+                "joinedAt",
+                "micStatus",
+                "cameraStatus",
+              ],
               data: {
                 joinCount: alreadyJoined[0]?.joinCount,
+                joinedAt: now,
                 leftAt: null,
               },
             }
           );
           try {
-            await pusher.trigger(
-              `session-${sessionId}`,
-              "participantsListUpdate",
-              {
-                userJoined: alreadyJoined[0]?.user,
-              }
-            );
+            await pusher.trigger(`session-${sessionId}`, "participantsUpdate", {
+              userJoined: updatedParticipant,
+            });
           } catch (error) {
             ctx.status = 500;
             ctx.body = error;
           }
-          ctx.body = updateJoinCount;
+          ctx.body = updatedParticipant;
           return;
         }
 
+        // If new user has joined
         const newParticipant = await strapi.entityService.create(
           "api::session-participant.session-participant",
           {
+            fields: [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "joinCount",
+              "leftAt",
+              "joinedAt",
+              "micStatus",
+              "cameraStatus",
+            ],
             data: {
               user: {
                 connect: [parseInt(user?.id)],
@@ -104,12 +142,13 @@ module.exports = createCoreController(
               session: {
                 connect: [parseInt(sessionId)],
               },
+              joinedAt: now,
             },
             populate: {
               user: {
                 fields: ["id", "username", "name"],
                 avatar: {
-                  fields: ["id", "url"],
+                  fields: ["url"],
                 },
               },
             },
@@ -117,13 +156,9 @@ module.exports = createCoreController(
         );
 
         try {
-          await pusher.trigger(
-            `session-${sessionId}`,
-            "participantsListUpdate",
-            {
-              userJoined: newParticipant,
-            }
-          );
+          await pusher.trigger(`session-${sessionId}`, "participantsUpdate", {
+            userJoined: newParticipant,
+          });
         } catch (error) {
           ctx.status = 500;
           ctx.body = error;
@@ -143,7 +178,16 @@ module.exports = createCoreController(
         const alreadyJoined = await strapi.entityService.findMany(
           "api::session-participant.session-participant",
           {
-            fields: ["id", "createdAt", "updatedAt", "joinCount", "leftAt"],
+            fields: [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "joinCount",
+              "leftAt",
+              "joinedAt",
+              "micStatus",
+              "cameraStatus",
+            ],
             filters: {
               $and: [
                 {
@@ -158,14 +202,14 @@ module.exports = createCoreController(
               user: {
                 fields: ["id", "username", "name"],
                 avatar: {
-                  fields: ["id", "url"],
+                  fields: ["url"],
                 },
               },
             },
           }
         );
         if (alreadyJoined?.length) {
-          const updateInfo = await strapi.entityService.update(
+          const updatedParticipant = await strapi.entityService.update(
             "api::session-participant.session-participant",
             alreadyJoined[0]?.id,
             {
@@ -175,18 +219,14 @@ module.exports = createCoreController(
             }
           );
           try {
-            await pusher.trigger(
-              `session-${sessionId}`,
-              "participantsListUpdate",
-              {
-                userLeft: alreadyJoined[0]?.user,
-              }
-            );
+            await pusher.trigger(`session-${sessionId}`, "participantsUpdate", {
+              userLeft: updatedParticipant,
+            });
           } catch (error) {
             ctx.status = 500;
             ctx.body = error;
           }
-          ctx.body = updateInfo;
+          ctx.body = updatedParticipant;
           return;
         }
 
@@ -211,9 +251,87 @@ module.exports = createCoreController(
           return;
         }
         try {
-          await pusher.trigger(`session-${sessionId}`, eventName, {
-            ...data,
-          });
+          // If admin has updated participants permission
+          if (eventName == "permissionUpdate") {
+            const { participant, permission } = data;
+            if (!participant) {
+              ctx.status = 400;
+              ctx.body = {
+                message: "Need participant info to update permission",
+              };
+            }
+
+            const alreadyJoined = await strapi.entityService.findMany(
+              "api::session-participant.session-participant",
+              {
+                fields: [
+                  "id",
+                  "createdAt",
+                  "updatedAt",
+                  "joinCount",
+                  "leftAt",
+                  "joinedAt",
+                  "micStatus",
+                  "cameraStatus",
+                ],
+                filters: {
+                  $and: [
+                    {
+                      session: parseInt(sessionId),
+                    },
+                    {
+                      user: parseInt(user?.id),
+                    },
+                  ],
+                },
+                populate: {
+                  user: {
+                    fields: ["id", "username", "name"],
+                    avatar: {
+                      fields: ["url"],
+                    },
+                  },
+                },
+              }
+            );
+
+            // If the user has already joined the session
+            if (alreadyJoined?.length) {
+              const updatedParticipant = await strapi.entityService.update(
+                "api::session-participant.session-participant",
+                alreadyJoined[0]?.id,
+                {
+                  fields: [
+                    "id",
+                    "createdAt",
+                    "updatedAt",
+                    "joinCount",
+                    "leftAt",
+                    "joinedAt",
+                    "micStatus",
+                    "cameraStatus",
+                  ],
+                  data: {
+                    ...permission,
+                  },
+                }
+              );
+              try {
+                await pusher.trigger(`session-${sessionId}`, eventName, {
+                  userUpdated: updatedParticipant,
+                });
+              } catch (error) {
+                ctx.status = 500;
+                ctx.body = error;
+              }
+              ctx.body = updatedParticipant;
+              return;
+            }
+          } else {
+            await pusher.trigger(`session-${sessionId}`, eventName, {
+              ...data,
+            });
+          }
         } catch (error) {
           ctx.status = 500;
           ctx.body = error;

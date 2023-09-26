@@ -28,6 +28,17 @@
     },
     "leftAt": {
       "type": "datetime"
+    },
+    "joinedAt": {
+      "type": "datetime"
+    },
+    "micStatus": {
+      "type": "boolean",
+      "default": false
+    },
+    "cameraStatus": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

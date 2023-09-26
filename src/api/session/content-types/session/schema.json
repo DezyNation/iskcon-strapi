@@ -61,11 +61,11 @@
       "type": "boolean",
       "default": true
     },
-    "audioStatus": {
+    "micStatus": {
       "type": "boolean",
       "default": true
     },
-    "videoStatus": {
+    "cameraStatus": {
       "type": "boolean",
       "default": true
     },
