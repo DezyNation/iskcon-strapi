@@ -7,5 +7,5 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
-  url: env('MODE', 'production') == 'production' ? "https://api.krishnaconsciousnesssociety.com" : null,
+  url: env('NODE_ENV', 'production') == 'production' ? "https://api.krishnaconsciousnesssociety.com" : null,
 });

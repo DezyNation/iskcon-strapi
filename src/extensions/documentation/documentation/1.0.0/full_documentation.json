@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-09-26T19:11:55.692Z"
+    "x-generation-date": "2023-09-28T10:34:35.937Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -7100,6 +7100,12 @@
               },
               "cameraStatus": {
                 "type": "boolean"
+              },
+              "isCoHost": {
+                "type": "boolean"
+              },
+              "isPreacher": {
+                "type": "boolean"
               }
             }
           }
@@ -8506,6 +8512,12 @@
             "type": "boolean"
           },
           "cameraStatus": {
+            "type": "boolean"
+          },
+          "isCoHost": {
+            "type": "boolean"
+          },
+          "isPreacher": {
             "type": "boolean"
           },
           "createdAt": {

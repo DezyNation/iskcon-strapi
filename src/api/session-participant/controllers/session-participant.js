@@ -26,6 +26,8 @@ module.exports = createCoreController(
               "joinedAt",
               "micStatus",
               "cameraStatus",
+              "isCoHost",
+              "isPreacher"
             ],
             filters: {
               session: sessionId,
@@ -64,6 +66,8 @@ module.exports = createCoreController(
               "joinedAt",
               "micStatus",
               "cameraStatus",
+              "isCoHost",
+              "isPreacher"
             ],
             filters: {
               $and: [
@@ -134,6 +138,8 @@ module.exports = createCoreController(
               "joinedAt",
               "micStatus",
               "cameraStatus",
+              "isCoHost",
+              "isPreacher"
             ],
             data: {
               user: {
@@ -187,6 +193,8 @@ module.exports = createCoreController(
               "joinedAt",
               "micStatus",
               "cameraStatus",
+              "isCoHost",
+              "isPreacher"
             ],
             filters: {
               $and: [
@@ -250,11 +258,12 @@ module.exports = createCoreController(
           ctx.body = { message: "You're not allowed to trigger notifications" };
           return;
         }
+
         try {
           // If admin has updated participants permission
           if (eventName == "permissionUpdate") {
-            const { participant, permission } = data;
-            if (!participant) {
+            const { participantId, permission } = data;
+            if (!participantId) {
               ctx.status = 400;
               ctx.body = {
                 message: "Need participant info to update permission",
@@ -280,7 +289,7 @@ module.exports = createCoreController(
                       session: parseInt(sessionId),
                     },
                     {
-                      user: parseInt(user?.id),
+                      user: parseInt(participantId),
                     },
                   ],
                 },

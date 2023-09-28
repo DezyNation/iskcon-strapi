@@ -39,6 +39,15 @@
     "cameraStatus": {
       "type": "boolean",
       "default": false
+    },
+    "isCoHost": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "isPreacher": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
