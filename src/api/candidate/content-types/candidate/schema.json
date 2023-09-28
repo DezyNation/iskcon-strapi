@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "candidates",
+  "info": {
+    "singularName": "candidate",
+    "pluralName": "candidates",
+    "displayName": "Candidate"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "volunteer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::volunteer.volunteer"
+    },
+    "post": {
+      "type": "enumeration",
+      "enum": [
+        "President",
+        "Treasurer",
+        "Secretary",
+        "Assistant",
+        "Board Member"
+      ]
+    },
+    "votes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vote.vote",
+      "mappedBy": "candidate"
+    }
+  }
+}

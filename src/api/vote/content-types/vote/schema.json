@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "votes",
+  "info": {
+    "singularName": "vote",
+    "pluralName": "votes",
+    "displayName": "Vote"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "candidate": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::candidate.candidate",
+      "inversedBy": "votes"
+    },
+    "token": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "isValid": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

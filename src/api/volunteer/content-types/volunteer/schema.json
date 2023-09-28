@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "volunteers",
+  "info": {
+    "singularName": "volunteer",
+    "pluralName": "volunteers",
+    "displayName": "Volunteer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idNumber": {
+      "type": "biginteger"
+    },
+    "name": {
+      "type": "string"
+    },
+    "canVote": {
+      "type": "boolean",
+      "default": true,
+      "private": true
+    },
+    "avatar": {
+      "type": "string"
+    }
+  }
+}

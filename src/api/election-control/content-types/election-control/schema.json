@@ -1,0 +1,42 @@
+{
+  "kind": "singleType",
+  "collectionName": "election_controls",
+  "info": {
+    "singularName": "election-control",
+    "pluralName": "election-controls",
+    "displayName": "Election Control",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "startAt": {
+      "type": "datetime"
+    },
+    "endAt": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "upcoming",
+        "ongoing",
+        "declared"
+      ]
+    },
+    "observation1": {
+      "type": "text"
+    },
+    "observation2": {
+      "type": "text"
+    }
+  }
+}

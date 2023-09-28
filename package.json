@@ -17,6 +17,7 @@
     "@strapi/provider-email-nodemailer": "^4.13.2",
     "@strapi/strapi": "4.13.1",
     "axios": "^1.5.0",
+    "bcrypt": "^5.1.1",
     "better-sqlite3": "8.5.0",
     "mysql2": "^3.6.0",
     "patch-package": "^8.0.0",
