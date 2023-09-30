@@ -10,10 +10,10 @@ const bcrypt = require("bcrypt");
 module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
   casteVote: async (ctx, next) => {
     try {
-      console.log("Initiating...")
-      const { candidateId, secretPin, location, ip } = ctx.body;
+      
+      const { candidateId, secretPin, location } = ctx.request.body;
+      const { ip } = ctx.request;
 
-      console.log("Starting...")
       const election = await strapi.entityService.findOne(
         "api::election-control.election-control",
         1,
@@ -21,8 +21,7 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
           fields: ["id", "status", "totalVotes"],
         }
       );
-      console.log("Election")
-      console.log(election)
+      
 
       if (election?.status != "ongoing") {
         return ctx.badRequest("Election is not ongoing");
@@ -36,18 +35,14 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
         return ctx.badRequest("Please provide your location and pin");
       }
 
-      console.log("Req Data")
-      console.log(candidateId)
-      console.log(secretPin)
-      console.log(location)
-      console.log(ip)
-
       const candidate = await strapi.entityService.findMany(
         "api::candidate.candidate",
         {
           fields: ["id"],
           filters: {
-            id: parseInt(candidateId),
+            volunteer:{
+              idNumber: parseInt(candidateId),
+            }
           },
         }
       );
@@ -55,9 +50,6 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
       if (!candidate?.length) {
         return ctx.badRequest("Candidate not found");
       }
-
-      console.log("Candidate")
-      console.log(candidate[0])
 
       const volunteer = await strapi.entityService.findMany(
         "api::volunteer.volunteer",
@@ -72,9 +64,6 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
       if (!volunteer?.length) {
         return ctx.badRequest("Invalid PIN");
       }
-
-      console.log("Volunteer")
-      console.log(volunteer[0])
 
       if (!volunteer[0]?.canVote) {
         return ctx.badRequest("You are currently unable to cast a vote");
@@ -108,13 +97,9 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
         return ctx.badRequest("You have already voted");
       }
 
-      console.log("Existing Vote")
-      console.log(existingVote)
-
       const salt = 4;
       const token = bcrypt.hashSync(secretPin, salt);
-      console.log("Token")
-      console.log(token)
+      
       if (token) {
         const result = await strapi.entityService.create("api::vote.vote", {
           fields: ["id", "token", "createdAt", "isValid"],
@@ -146,8 +131,8 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
             },
           }
         );
-        console.log("Result")
-        console.log(result)
+        console.log("Result");
+        console.log(result);
         ctx.body = {
           ...result,
           voterId: volunteer[0]?.idNumber,
