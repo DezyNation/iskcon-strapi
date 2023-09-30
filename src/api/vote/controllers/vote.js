@@ -69,6 +69,10 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
         return ctx.badRequest("You are currently unable to cast a vote");
       }
 
+      if(volunteer[0]?.idNumber == candidate[0]?.volunteer?.idNumber){
+        return ctx.badRequest('Cannot Vote for yourself')
+      }
+
       const existingVote = await strapi.entityService.findMany(
         "api::vote.vote",
         {
