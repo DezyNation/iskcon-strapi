@@ -9,5 +9,23 @@ module.exports ={
                 middlewares: [],
             },
         },
+        {
+            method: 'GET',
+            path: '/vote/valid-votes',
+            handler: 'vote.getValidVotes',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
+        {
+            method: 'GET',
+            path: '/vote/result',
+            handler: 'vote.result',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
     ]
 }

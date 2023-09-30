@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-09-29T19:23:41.543Z"
+    "x-generation-date": "2023-09-30T00:17:29.889Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -25,7 +25,7 @@
   },
   "servers": [
     {
-      "url": "https://api.krishnaconsciousnesssociety.com/api",
+      "url": "http://localhost:1337/api",
       "description": "Development server"
     }
   ],
@@ -1346,11 +1346,6 @@
                   "attributes": {
                     "type": "object",
                     "properties": {
-                      "idNumber": {
-                        "type": "string",
-                        "pattern": "^\\d*$",
-                        "example": "123456789"
-                      },
                       "name": {
                         "type": "string"
                       },
@@ -1360,15 +1355,18 @@
                       "avatar": {
                         "type": "string"
                       },
+                      "idNumber": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email"
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
                       },
                       "updatedAt": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "publishedAt": {
                         "type": "string",
                         "format": "date-time"
                       },
@@ -3456,10 +3454,10 @@
           "data": {
             "type": "object",
             "properties": {
-              "Title": {
+              "title": {
                 "type": "string"
               },
-              "Description": {
+              "description": {
                 "type": "string"
               },
               "startAt": {
@@ -3482,6 +3480,14 @@
                 "type": "string"
               },
               "observation2": {
+                "type": "string"
+              },
+              "totalVotes": {
+                "type": "string",
+                "pattern": "^\\d*$",
+                "example": "123456789"
+              },
+              "terms": {
                 "type": "string"
               }
             }
@@ -3537,10 +3543,10 @@
       "ElectionControl": {
         "type": "object",
         "properties": {
-          "Title": {
+          "title": {
             "type": "string"
           },
-          "Description": {
+          "description": {
             "type": "string"
           },
           "startAt": {
@@ -3563,6 +3569,14 @@
             "type": "string"
           },
           "observation2": {
+            "type": "string"
+          },
+          "totalVotes": {
+            "type": "string",
+            "pattern": "^\\d*$",
+            "example": "123456789"
+          },
+          "terms": {
             "type": "string"
           },
           "createdAt": {
@@ -10837,11 +10851,6 @@
           "data": {
             "type": "object",
             "properties": {
-              "idNumber": {
-                "type": "string",
-                "pattern": "^\\d*$",
-                "example": "123456789"
-              },
               "name": {
                 "type": "string"
               },
@@ -10850,6 +10859,13 @@
               },
               "avatar": {
                 "type": "string"
+              },
+              "idNumber": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string",
+                "format": "email"
               }
             }
           }
@@ -10904,11 +10920,6 @@
       "Volunteer": {
         "type": "object",
         "properties": {
-          "idNumber": {
-            "type": "string",
-            "pattern": "^\\d*$",
-            "example": "123456789"
-          },
           "name": {
             "type": "string"
           },
@@ -10918,15 +10929,18 @@
           "avatar": {
             "type": "string"
           },
+          "idNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
           },
           "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "publishedAt": {
             "type": "string",
             "format": "date-time"
           },
@@ -11348,11 +11362,6 @@
                               "attributes": {
                                 "type": "object",
                                 "properties": {
-                                  "idNumber": {
-                                    "type": "string",
-                                    "pattern": "^\\d*$",
-                                    "example": "123456789"
-                                  },
                                   "name": {
                                     "type": "string"
                                   },
@@ -11362,15 +11371,18 @@
                                   "avatar": {
                                     "type": "string"
                                   },
+                                  "idNumber": {
+                                    "type": "string"
+                                  },
+                                  "email": {
+                                    "type": "string",
+                                    "format": "email"
+                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
                                   },
                                   "updatedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "publishedAt": {
                                     "type": "string",
                                     "format": "date-time"
                                   },

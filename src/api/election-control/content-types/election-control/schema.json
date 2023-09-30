@@ -12,10 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
     },
-    "Description": {
+    "description": {
       "type": "text"
     },
     "startAt": {
@@ -37,6 +37,12 @@
     },
     "observation2": {
       "type": "text"
+    },
+    "totalVotes": {
+      "type": "biginteger"
+    },
+    "terms": {
+      "type": "richtext"
     }
   }
 }
