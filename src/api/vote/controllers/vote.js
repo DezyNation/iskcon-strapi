@@ -11,9 +11,7 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
   casteVote: async (ctx, next) => {
     try {
       console.log("Initiating...")
-      const { candidateId, secretPin, location } = ctx.body;
-      const { ip } = ctx.request;
-      console.log(Boolean(ctx.request.ip))
+      const { candidateId, secretPin, location, ip } = ctx.body;
 
       console.log("Starting...")
       const election = await strapi.entityService.findOne(
