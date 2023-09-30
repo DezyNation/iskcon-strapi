@@ -97,7 +97,7 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
         }
       );
 
-      if (existingVote.length) {
+      if (existingVote.length && bcrypt.compareSync(secretPin, existingVote[0]?.token)) {
         return ctx.badRequest("You have already voted");
       }
 
