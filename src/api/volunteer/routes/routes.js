@@ -1,7 +1,7 @@
 module.exports={
     routes: [
         {
-            method: 'POST',
+            method: 'GET',
             path: '/volunteers/view/all',
             handler: 'volunteer.fetchVolunteers',
             config: {
