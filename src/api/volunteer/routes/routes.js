@@ -2,8 +2,8 @@ module.exports={
     routes: [
         {
             method: 'POST',
-            path: '/volunteers/create/new',
-            handler: 'volunteer.createNewVolunteer',
+            path: '/volunteers/view/all',
+            handler: 'volunteer.fetchVolunteers',
             config: {
                 policies: [],
                 middlewares: [],

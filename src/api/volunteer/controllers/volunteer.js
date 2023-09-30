@@ -9,18 +9,13 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController(
   "api::volunteer.volunteer",
   ({ strapi }) => ({
-    createNewVolunteer: async (ctx, next) => {
+    fetchVolunteers: async (ctx, next) => {
       try {
         const { name } = ctx.request.body;
-        const result = await strapi.entityService.create(
+        const result = await strapi.entityService.findMany(
           "api::volunteer.volunteer",
           {
-            fields: ["name", "createdAt"],
-            data: {
-              name: name,
-              idNumber:
-                `${Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000}`,
-            },
+            fields: ["name", "createdAt", "canVote"],
           }
         );
         ctx.body = result;
