@@ -20,7 +20,7 @@ module.exports ={
         },
         {
             method: 'GET',
-            path: '/vote/result',
+            path: '/vote/view/result',
             handler: 'vote.result',
             config: {
                 policies: [],
