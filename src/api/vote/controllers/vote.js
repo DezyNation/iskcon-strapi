@@ -180,7 +180,7 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
               fields: ["isValid", "token", "createdAt"],
             },
             volunteer: {
-              fields: ["id", "name", "email", "avatar"],
+              fields: ["id", "name", "email", "avatar", "idNumber"],
             },
           },
         }
