@@ -143,7 +143,7 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
   getValidVotes: async (ctx, next) => {
     try {
       const result = await strapi.entityService.findMany("api::vote.vote", {
-        fields: ["token", "candidate", "location", "ip"],
+        fields: ["token", "location", "ip", "createdAt", "isVerified"],
         filters: {
           isValid: true,
         },
@@ -187,4 +187,55 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
       ctx.body = error;
     }
   },
+  verify : async (ctx, next) => {
+    try {
+      const { secretPin, candidatedId } = ctx.request.body
+      if(!secretPin || !candidatedId){
+        return ctx.badRequest('Missing required parameters')
+      }
+
+      let tokens = []
+
+      // get all votes of the candidate
+      const votes = await strapi.entityService.findMany("api::vote.vote", {
+        fields: ['isValid', 'createdAt', 'token', 'isVerified'],
+        filters: {
+          candidate :{
+            volunteer: {
+              idNumber: parseInt(candidatedId)
+            }
+          }
+        },
+        populate: {
+          candidate: {
+            populate: {
+              volunteer: {
+                fields: ['idNumber', 'name', 'avatar']
+              }
+            }
+          }
+        }
+      })
+
+      if(!votes?.length){
+        return ctx.badRequest('No tokens found')
+      }
+
+      for (let i = 0; i < votes?.length; i++) {
+        const vote = votes[i];
+        if(bcrypt.compareSync(secretPin, vote?.token)){
+          tokens?.push(vote)
+        }
+      }
+
+      if(!tokens?.length){
+        return ctx.badRequest('Token Not Found!')
+      }
+
+      ctx.body = tokens
+
+    } catch (error) {
+      ctx.body = error
+    }
+  }
 }));

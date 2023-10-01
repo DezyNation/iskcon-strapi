@@ -27,5 +27,14 @@ module.exports ={
                 middlewares: [],
             },
         },
+        {
+            method: 'POST',
+            path: '/vote/verify',
+            handler: 'vote.verify',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
     ]
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "vote",
     "pluralName": "votes",
-    "displayName": "Vote"
+    "displayName": "Vote",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -29,6 +30,10 @@
     "isValid": {
       "type": "boolean",
       "default": true
+    },
+    "isVerified": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
