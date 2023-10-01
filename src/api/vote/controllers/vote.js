@@ -124,7 +124,7 @@ module.exports = createCoreController("api::vote.vote", ({ strapi }) => ({
           1,
           {
             data: {
-              totalVotes: election?.totalVotes + 1,
+              totalVotes: parseInt(election?.totalVotes) + 1,
             },
           }
         );
