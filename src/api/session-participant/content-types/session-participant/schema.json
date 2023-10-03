@@ -48,6 +48,10 @@
     "isPreacher": {
       "type": "boolean",
       "default": false
+    },
+    "handRaised": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

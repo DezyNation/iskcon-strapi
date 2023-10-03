@@ -27,7 +27,8 @@ module.exports = createCoreController(
               "micStatus",
               "cameraStatus",
               "isCoHost",
-              "isPreacher"
+              "isPreacher",
+              "handRaised",
             ],
             filters: {
               session: sessionId,
@@ -49,6 +50,60 @@ module.exports = createCoreController(
         ctx.body = error;
       }
     },
+
+    me: async (ctx, next) => {
+      try {
+        const { sessionId } = ctx.request.body;
+        const { user } = ctx.state;
+
+        if (!user) {
+          return ctx.unauthorised("Unauthorised request");
+        }
+
+        if (!sessionId) {
+          return ctx.badRequest("Session ID is missing");
+        }
+
+        const result = await strapi.entityService.findMany(
+          "api::session-participant.session-participant",
+          {
+            fields: [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "joinCount",
+              "leftAt",
+              "joinedAt",
+              "micStatus",
+              "cameraStatus",
+              "isCoHost",
+              "isPreacher",
+              "handRaised",
+            ],
+            filters: {
+              $and: [
+                {
+                  session: {
+                    id: parseInt(sessionId),
+                  },
+                  user: {
+                    id: parseInt(user?.id),
+                  },
+                },
+              ],
+            },
+          }
+        );
+
+        if (!result?.length) {
+          return ctx.notFound("Participant info not found!");
+        }
+        ctx.body = result;
+      } catch (error) {
+        ctx.internalServerError(error);
+      }
+    },
+
     addMe: async (ctx, next) => {
       try {
         const now = new Date();
@@ -67,7 +122,8 @@ module.exports = createCoreController(
               "micStatus",
               "cameraStatus",
               "isCoHost",
-              "isPreacher"
+              "isPreacher",
+              "handRaised",
             ],
             filters: {
               $and: [
@@ -105,6 +161,9 @@ module.exports = createCoreController(
                 "joinedAt",
                 "micStatus",
                 "cameraStatus",
+                "isCoHost",
+                "isPreacher",
+                "handRaised",
               ],
               data: {
                 joinCount: alreadyJoined[0]?.joinCount,
@@ -139,7 +198,8 @@ module.exports = createCoreController(
               "micStatus",
               "cameraStatus",
               "isCoHost",
-              "isPreacher"
+              "isPreacher",
+              "handRaised",
             ],
             data: {
               user: {
@@ -163,7 +223,7 @@ module.exports = createCoreController(
 
         try {
           await pusher.trigger(`session-${sessionId}`, "participantsUpdate", {
-            userJoined: newParticipant,
+            user: newParticipant,
           });
         } catch (error) {
           ctx.status = 500;
@@ -194,7 +254,8 @@ module.exports = createCoreController(
               "micStatus",
               "cameraStatus",
               "isCoHost",
-              "isPreacher"
+              "isPreacher",
+              "handRaised",
             ],
             filters: {
               $and: [
@@ -228,7 +289,7 @@ module.exports = createCoreController(
           );
           try {
             await pusher.trigger(`session-${sessionId}`, "participantsUpdate", {
-              userLeft: updatedParticipant,
+              user: updatedParticipant,
             });
           } catch (error) {
             ctx.status = 500;
@@ -249,101 +310,143 @@ module.exports = createCoreController(
         const { sessionId, eventName, data } = ctx.body;
         const { user } = ctx.state;
         if (!sessionId || !eventName || data) {
-          ctx.status = 406;
-          ctx.body = { message: "Invalid or incomplete request body" };
+          ctx.badRequest("Invalid or incomplete request body");
           return;
         }
         if (!user) {
-          ctx.status = 403;
-          ctx.body = { message: "You're not allowed to trigger notifications" };
+          ctx.badRequest("You're not allowed to trigger notifications");
           return;
         }
 
-        try {
-          // If admin has updated participants permission
-          if (eventName == "permissionUpdate") {
-            const { participantId, permission } = data;
-            if (!participantId) {
-              ctx.status = 400;
-              ctx.body = {
-                message: "Need participant info to update permission",
-              };
-            }
+        await pusher.trigger(`session-${sessionId}`, eventName, {
+          ...data,
+        });
+      } catch (error) {
+        ctx.body = error;
+      }
+    },
 
-            const alreadyJoined = await strapi.entityService.findMany(
-              "api::session-participant.session-participant",
-              {
-                fields: [
-                  "id",
-                  "createdAt",
-                  "updatedAt",
-                  "joinCount",
-                  "leftAt",
-                  "joinedAt",
-                  "micStatus",
-                  "cameraStatus",
-                ],
-                filters: {
-                  $and: [
-                    {
-                      session: parseInt(sessionId),
-                    },
-                    {
-                      user: parseInt(participantId),
-                    },
-                  ],
-                },
-                populate: {
-                  user: {
-                    fields: ["id", "username", "name"],
-                    avatar: {
-                      fields: ["url"],
-                    },
-                  },
-                },
-              }
-            );
+    updateParticipant: async (ctx, next) => {
+      try {
+        const { sessionId, participantId, permission } = ctx.body;
+        const { user } = ctx.state;
+        if (!sessionId || !participantId || !permission) {
+          return ctx.badRequest("Invalid or incomplete request body");
+        }
 
-            // If the user has already joined the session
-            if (alreadyJoined?.length) {
-              const updatedParticipant = await strapi.entityService.update(
-                "api::session-participant.session-participant",
-                alreadyJoined[0]?.id,
+        if (!user) {
+          return ctx.forbidden("You're not allowed to make updates");
+        }
+
+        if (!participantId) {
+          return ctx.badRequest("Need participant info to update permission");
+        }
+
+        const session = await strapi.entityService.findMany(
+          "api::session.session",
+          {
+            fields: ["id", "micStatus", "cameraStatus", "status"],
+            filters: {
+              $and: [
                 {
-                  fields: [
-                    "id",
-                    "createdAt",
-                    "updatedAt",
-                    "joinCount",
-                    "leftAt",
-                    "joinedAt",
-                    "micStatus",
-                    "cameraStatus",
-                  ],
-                  data: {
-                    ...permission,
-                  },
-                }
-              );
-              try {
-                await pusher.trigger(`session-${sessionId}`, eventName, {
-                  userUpdated: updatedParticipant,
-                });
-              } catch (error) {
-                ctx.status = 500;
-                ctx.body = error;
-              }
-              ctx.body = updatedParticipant;
-              return;
-            }
-          } else {
-            await pusher.trigger(`session-${sessionId}`, eventName, {
-              ...data,
-            });
+                  id: parseInt(sessionId),
+                },
+                {
+                  status: "ongoing",
+                },
+              ],
+            },
+            populate: {
+              preacher: {
+                fields: ["id"],
+              },
+            },
           }
-        } catch (error) {
-          ctx.status = 500;
-          ctx.body = error;
+        );
+
+        if (!session?.length) {
+          return ctx.notFound("Session does not exist");
+        }
+
+        const alreadyJoined = await strapi.entityService.findMany(
+          "api::session-participant.session-participant",
+          {
+            fields: [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "joinCount",
+              "leftAt",
+              "joinedAt",
+              "micStatus",
+              "cameraStatus",
+            ],
+            filters: {
+              $and: [
+                {
+                  session: parseInt(sessionId),
+                },
+                {
+                  user: parseInt(participantId),
+                },
+              ],
+            },
+            populate: {
+              user: {
+                fields: ["id", "username", "name"],
+                avatar: {
+                  fields: ["url"],
+                },
+              },
+            },
+          }
+        );
+
+        if (!alreadyJoined?.length) {
+          return ctx.notFound("You didn't join this session");
+        }
+
+        // If the user has already joined the session
+        if (alreadyJoined?.length) {
+          if (
+            permission?.micStatus &&
+            !session[0]?.micStatus &&
+            session[0]?.preacher?.id != participantId &&
+            !alreadyJoined[0]?.isCoHost
+          ) {
+            return ctx.notAcceptable("Preacher has disabled mic access");
+          }
+
+          const updatedParticipant = await strapi.entityService.update(
+            "api::session-participant.session-participant",
+            alreadyJoined[0]?.id,
+            {
+              fields: [
+                "id",
+                "createdAt",
+                "updatedAt",
+                "joinCount",
+                "leftAt",
+                "joinedAt",
+                "micStatus",
+                "cameraStatus",
+              ],
+              data: {
+                ...permission,
+              },
+            }
+          );
+
+          try {
+            await pusher.trigger(`session-${sessionId}`, "permissionUpdate", {
+              user: updatedParticipant,
+            });
+          } catch (error) {
+            ctx.status = 500;
+            ctx.body = error;
+          }
+          ctx.body = updatedParticipant;
+          return;
         }
       } catch (error) {
         ctx.body = error;

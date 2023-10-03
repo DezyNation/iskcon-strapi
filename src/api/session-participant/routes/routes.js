@@ -10,6 +10,15 @@ module.exports = {
             },
         },
         {
+            method: 'GET',
+            path: '/session-participant/me',
+            handler: 'session-participant.me',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
+        {
             method: 'POST',
             path: '/session-participant/add-me',
             handler: 'session-participant.addMe',
@@ -31,6 +40,15 @@ module.exports = {
             method: 'POST',
             path: '/session-participant/notify',
             handler: 'session-participant.notify',
+            config: {
+                policies: [],
+                middlewares: [],
+            },
+        },
+        {
+            method: 'POST',
+            path: '/session-participant/update',
+            handler: 'session-participant.updateParticipant',
             config: {
                 policies: [],
                 middlewares: [],
