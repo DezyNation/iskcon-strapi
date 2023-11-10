@@ -20,11 +20,6 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
       const result = await strapi.entityService.create("api::session.session", {
         data: {
           ...ctx.request.body,
-          ...(parseInt(coHost) > 1 && {
-            coHost: {
-              connect: [parseInt(coHost)],
-            },
-          }),
           startAt: startAt ? startAt : now.toISOString(),
           preacher: {
             connect: [parseInt(preacher)],
@@ -35,7 +30,6 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
             },
           }),
           status: intent == "create" ? "ongoing" : "upcoming",
-          hostedLink: `${process.env.CONFERENCE_BASE_URL}/join/${slug}`,
         },
       });
 
@@ -60,7 +54,7 @@ module.exports = createCoreController("api::session.session", ({ strapi }) => ({
             })} <br/>
             Join with <a href="${
               process.env.FRONTEND_URL
-            }/dashboard/sessions/join/${slug}" target="_blank">this link</a>
+            }/sessions/prepare/${slug}" target="_blank">this link</a>
             `,
           },
         });
