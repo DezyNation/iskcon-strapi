@@ -103,7 +103,7 @@ module.exports = createCoreController("api::post.post", ({ strapi }) => ({
         {
           data: {
             reactions: {
-              connect: [user?.id],
+              disconnect: [user?.id],
             },
           },
         }
