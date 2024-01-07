@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "content_controls",
+  "info": {
+    "singularName": "content-control",
+    "pluralName": "content-controls",
+    "displayName": "Content Control",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cowsFed": {
+      "type": "biginteger"
+    },
+    "cowCareTarget": {
+      "type": "biginteger"
+    },
+    "pin": {
+      "type": "integer",
+      "private": true
+    }
+  }
+}
