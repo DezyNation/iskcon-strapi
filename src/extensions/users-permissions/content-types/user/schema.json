@@ -134,6 +134,10 @@
         "male",
         "female"
       ]
+    },
+    "isCoordinator": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

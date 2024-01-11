@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-01-11T18:36:28.046Z"
+    "x-generation-date": "2024-01-11T18:54:56.053Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1062,6 +1062,9 @@
                           "male",
                           "female"
                         ]
+                      },
+                      "isCoordinator": {
+                        "type": "boolean"
                       },
                       "createdAt": {
                         "type": "string",
@@ -3651,6 +3654,9 @@
                           "female"
                         ]
                       },
+                      "isCoordinator": {
+                        "type": "boolean"
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
@@ -5216,6 +5222,9 @@
                             "female"
                           ]
                         },
+                        "isCoordinator": {
+                          "type": "boolean"
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -6470,6 +6479,9 @@
                           "male",
                           "female"
                         ]
+                      },
+                      "isCoordinator": {
+                        "type": "boolean"
                       },
                       "createdAt": {
                         "type": "string",
@@ -8018,6 +8030,9 @@
                                       "female"
                                     ]
                                   },
+                                  "isCoordinator": {
+                                    "type": "boolean"
+                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
@@ -9424,6 +9439,9 @@
                                                   "male",
                                                   "female"
                                                 ]
+                                              },
+                                              "isCoordinator": {
+                                                "type": "boolean"
                                               },
                                               "createdAt": {
                                                 "type": "string",
@@ -10850,6 +10868,9 @@
                           "male",
                           "female"
                         ]
+                      },
+                      "isCoordinator": {
+                        "type": "boolean"
                       },
                       "createdAt": {
                         "type": "string",
