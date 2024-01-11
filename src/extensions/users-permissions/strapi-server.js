@@ -1,5 +1,3 @@
-const { default: axios } = require("axios");
-
 module.exports = (plugin) => {
   plugin.controllers.user.deleteRequest = async (ctx) => {
     try {
@@ -27,7 +25,7 @@ module.exports = (plugin) => {
         return;
       }
       const userId = result[0]?.id;
-      
+
       const pendingRequests = await strapi.entityService.findMany(
         "api::account-delete-request.account-delete-request",
         {
@@ -68,7 +66,7 @@ module.exports = (plugin) => {
         userId,
         {
           data: {
-            blocked: true
+            blocked: true,
           },
         }
       );
@@ -79,11 +77,76 @@ module.exports = (plugin) => {
     }
   };
 
+  plugin.controllers.user.updateMe = async (ctx) => {
+    try {
+      console.log("Updating User")
+      const { id } = ctx.state.user;
+
+      console.log(id)
+
+      const userExist = await strapi.entityService.findOne(
+        "plugin::users-permissions.user",
+        id,
+        {
+          fields: ["id"],
+        }
+      );
+
+      console.log("User Exist")
+      console.log(userExist)
+
+      if (!userExist?.id) {
+        ctx.unauthorized = { message: "User not found!" };
+        return;
+      }
+
+      const dataToUpdate = ctx.request.body;
+      console.log(dataToUpdate)
+
+      if (
+        dataToUpdate?.hasOwnProperty("provider") ||
+        dataToUpdate?.hasOwnProperty("resetPasswordToken") ||
+        dataToUpdate?.hasOwnProperty("confirmationToken") ||
+        dataToUpdate?.hasOwnProperty("confirmed") ||
+        dataToUpdate?.hasOwnProperty("blocked") ||
+        dataToUpdate?.hasOwnProperty("isCoordinator") ||
+        dataToUpdate?.hasOwnProperty("role")
+      ) {
+        ctx.badRequest = { message: "Can't update sensitive fields!" };
+        return;
+      }
+
+      await strapi.entityService.update(
+        "plugin::users-permissions.user",
+        parseInt(id),
+        {
+          data: {
+            ...dataToUpdate,
+          },
+        }
+      );
+
+      ctx.body = { message: "OK" };
+    } catch (error) {
+      console.log("Updating User Error")
+      console.log(error)
+      ctx.internalServerError(error);
+    }
+  };
+
   plugin.routes["content-api"].routes.push(
     {
       method: "POST",
       path: "/users/account/request-delete",
       handler: "user.deleteRequest",
+      config: {
+        prefix: "",
+      },
+    },
+    {
+      method: "PUT",
+      path: "/users/update/me",
+      handler: "user.updateMe",
       config: {
         prefix: "",
       },

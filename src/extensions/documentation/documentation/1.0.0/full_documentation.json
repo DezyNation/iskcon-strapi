@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-01-07T11:22:37.104Z"
+    "x-generation-date": "2024-01-11T18:36:28.046Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1019,90 +1019,49 @@
                         "pattern": "^\\d*$",
                         "example": "123456789"
                       },
-                      "kcExperience": {
-                        "type": "integer"
-                      },
                       "zipCode": {
                         "type": "string"
                       },
                       "phone": {
                         "type": "string"
                       },
-                      "country": {
-                        "type": "object",
-                        "properties": {
-                          "data": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "attributes": {
-                                "type": "object",
-                                "properties": {
-                                  "isdCode": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "createdAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "updatedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "publishedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "createdBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "updatedBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
                       "rcToken": {
                         "type": "string"
                       },
                       "secretPin": {
                         "type": "string"
+                      },
+                      "dob": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "kcExperience": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "telegramId": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string",
+                        "enum": [
+                          "India",
+                          "Canada",
+                          "United States of America (USA)"
+                        ]
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "qualification": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "enum": [
+                          "male",
+                          "female"
+                        ]
                       },
                       "createdAt": {
                         "type": "string",
@@ -3648,90 +3607,49 @@
                         "pattern": "^\\d*$",
                         "example": "123456789"
                       },
-                      "kcExperience": {
-                        "type": "integer"
-                      },
                       "zipCode": {
                         "type": "string"
                       },
                       "phone": {
                         "type": "string"
                       },
-                      "country": {
-                        "type": "object",
-                        "properties": {
-                          "data": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "attributes": {
-                                "type": "object",
-                                "properties": {
-                                  "isdCode": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "createdAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "updatedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "publishedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "createdBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "updatedBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
                       "rcToken": {
                         "type": "string"
                       },
                       "secretPin": {
                         "type": "string"
+                      },
+                      "dob": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "kcExperience": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "telegramId": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string",
+                        "enum": [
+                          "India",
+                          "Canada",
+                          "United States of America (USA)"
+                        ]
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "qualification": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "enum": [
+                          "male",
+                          "female"
+                        ]
                       },
                       "createdAt": {
                         "type": "string",
@@ -5254,90 +5172,49 @@
                           "pattern": "^\\d*$",
                           "example": "123456789"
                         },
-                        "kcExperience": {
-                          "type": "integer"
-                        },
                         "zipCode": {
                           "type": "string"
                         },
                         "phone": {
                           "type": "string"
                         },
-                        "country": {
-                          "type": "object",
-                          "properties": {
-                            "data": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "attributes": {
-                                  "type": "object",
-                                  "properties": {
-                                    "isdCode": {
-                                      "type": "string"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    },
-                                    "createdAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "updatedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "publishedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "createdBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "updatedBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "data": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "attributes": {
-                                              "type": "object",
-                                              "properties": {}
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
                         "rcToken": {
                           "type": "string"
                         },
                         "secretPin": {
                           "type": "string"
+                        },
+                        "dob": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "kcExperience": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "telegramId": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string",
+                          "enum": [
+                            "India",
+                            "Canada",
+                            "United States of America (USA)"
+                          ]
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "qualification": {
+                          "type": "string"
+                        },
+                        "gender": {
+                          "type": "string",
+                          "enum": [
+                            "male",
+                            "female"
+                          ]
                         },
                         "createdAt": {
                           "type": "string",
@@ -6550,90 +6427,49 @@
                         "pattern": "^\\d*$",
                         "example": "123456789"
                       },
-                      "kcExperience": {
-                        "type": "integer"
-                      },
                       "zipCode": {
                         "type": "string"
                       },
                       "phone": {
                         "type": "string"
                       },
-                      "country": {
-                        "type": "object",
-                        "properties": {
-                          "data": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "attributes": {
-                                "type": "object",
-                                "properties": {
-                                  "isdCode": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "createdAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "updatedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "publishedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "createdBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "updatedBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
                       "rcToken": {
                         "type": "string"
                       },
                       "secretPin": {
                         "type": "string"
+                      },
+                      "dob": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "kcExperience": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "telegramId": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string",
+                        "enum": [
+                          "India",
+                          "Canada",
+                          "United States of America (USA)"
+                        ]
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "qualification": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "enum": [
+                          "male",
+                          "female"
+                        ]
                       },
                       "createdAt": {
                         "type": "string",
@@ -8138,90 +7974,49 @@
                                     "pattern": "^\\d*$",
                                     "example": "123456789"
                                   },
-                                  "kcExperience": {
-                                    "type": "integer"
-                                  },
                                   "zipCode": {
                                     "type": "string"
                                   },
                                   "phone": {
                                     "type": "string"
                                   },
-                                  "country": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {
-                                              "isdCode": {
-                                                "type": "string"
-                                              },
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "createdAt": {
-                                                "type": "string",
-                                                "format": "date-time"
-                                              },
-                                              "updatedAt": {
-                                                "type": "string",
-                                                "format": "date-time"
-                                              },
-                                              "publishedAt": {
-                                                "type": "string",
-                                                "format": "date-time"
-                                              },
-                                              "createdBy": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "data": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "number"
-                                                      },
-                                                      "attributes": {
-                                                        "type": "object",
-                                                        "properties": {}
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              },
-                                              "updatedBy": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "data": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "number"
-                                                      },
-                                                      "attributes": {
-                                                        "type": "object",
-                                                        "properties": {}
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
                                   "rcToken": {
                                     "type": "string"
                                   },
                                   "secretPin": {
                                     "type": "string"
+                                  },
+                                  "dob": {
+                                    "type": "string",
+                                    "format": "date"
+                                  },
+                                  "kcExperience": {
+                                    "type": "string",
+                                    "format": "date"
+                                  },
+                                  "telegramId": {
+                                    "type": "string"
+                                  },
+                                  "country": {
+                                    "type": "string",
+                                    "enum": [
+                                      "India",
+                                      "Canada",
+                                      "United States of America (USA)"
+                                    ]
+                                  },
+                                  "state": {
+                                    "type": "string"
+                                  },
+                                  "qualification": {
+                                    "type": "string"
+                                  },
+                                  "gender": {
+                                    "type": "string",
+                                    "enum": [
+                                      "male",
+                                      "female"
+                                    ]
                                   },
                                   "createdAt": {
                                     "type": "string",
@@ -9586,90 +9381,49 @@
                                                 "pattern": "^\\d*$",
                                                 "example": "123456789"
                                               },
-                                              "kcExperience": {
-                                                "type": "integer"
-                                              },
                                               "zipCode": {
                                                 "type": "string"
                                               },
                                               "phone": {
                                                 "type": "string"
                                               },
-                                              "country": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "data": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "number"
-                                                      },
-                                                      "attributes": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "isdCode": {
-                                                            "type": "string"
-                                                          },
-                                                          "name": {
-                                                            "type": "string"
-                                                          },
-                                                          "createdAt": {
-                                                            "type": "string",
-                                                            "format": "date-time"
-                                                          },
-                                                          "updatedAt": {
-                                                            "type": "string",
-                                                            "format": "date-time"
-                                                          },
-                                                          "publishedAt": {
-                                                            "type": "string",
-                                                            "format": "date-time"
-                                                          },
-                                                          "createdBy": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                              "data": {
-                                                                "type": "object",
-                                                                "properties": {
-                                                                  "id": {
-                                                                    "type": "number"
-                                                                  },
-                                                                  "attributes": {
-                                                                    "type": "object",
-                                                                    "properties": {}
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          },
-                                                          "updatedBy": {
-                                                            "type": "object",
-                                                            "properties": {
-                                                              "data": {
-                                                                "type": "object",
-                                                                "properties": {
-                                                                  "id": {
-                                                                    "type": "number"
-                                                                  },
-                                                                  "attributes": {
-                                                                    "type": "object",
-                                                                    "properties": {}
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              },
                                               "rcToken": {
                                                 "type": "string"
                                               },
                                               "secretPin": {
                                                 "type": "string"
+                                              },
+                                              "dob": {
+                                                "type": "string",
+                                                "format": "date"
+                                              },
+                                              "kcExperience": {
+                                                "type": "string",
+                                                "format": "date"
+                                              },
+                                              "telegramId": {
+                                                "type": "string"
+                                              },
+                                              "country": {
+                                                "type": "string",
+                                                "enum": [
+                                                  "India",
+                                                  "Canada",
+                                                  "United States of America (USA)"
+                                                ]
+                                              },
+                                              "state": {
+                                                "type": "string"
+                                              },
+                                              "qualification": {
+                                                "type": "string"
+                                              },
+                                              "gender": {
+                                                "type": "string",
+                                                "enum": [
+                                                  "male",
+                                                  "female"
+                                                ]
                                               },
                                               "createdAt": {
                                                 "type": "string",
@@ -11053,90 +10807,49 @@
                         "pattern": "^\\d*$",
                         "example": "123456789"
                       },
-                      "kcExperience": {
-                        "type": "integer"
-                      },
                       "zipCode": {
                         "type": "string"
                       },
                       "phone": {
                         "type": "string"
                       },
-                      "country": {
-                        "type": "object",
-                        "properties": {
-                          "data": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "attributes": {
-                                "type": "object",
-                                "properties": {
-                                  "isdCode": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "createdAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "updatedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "publishedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "createdBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "updatedBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "data": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "attributes": {
-                                            "type": "object",
-                                            "properties": {}
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
                       "rcToken": {
                         "type": "string"
                       },
                       "secretPin": {
                         "type": "string"
+                      },
+                      "dob": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "kcExperience": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "telegramId": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string",
+                        "enum": [
+                          "India",
+                          "Canada",
+                          "United States of America (USA)"
+                        ]
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "qualification": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "string",
+                        "enum": [
+                          "male",
+                          "female"
+                        ]
                       },
                       "createdAt": {
                         "type": "string",
