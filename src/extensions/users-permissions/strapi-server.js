@@ -79,10 +79,7 @@ module.exports = (plugin) => {
 
   plugin.controllers.user.updateMe = async (ctx) => {
     try {
-      console.log("Updating User")
       const { id } = ctx.state.user;
-
-      console.log(id)
 
       const userExist = await strapi.entityService.findOne(
         "plugin::users-permissions.user",
@@ -92,16 +89,12 @@ module.exports = (plugin) => {
         }
       );
 
-      console.log("User Exist")
-      console.log(userExist)
-
       if (!userExist?.id) {
         ctx.unauthorized = { message: "User not found!" };
         return;
       }
 
       const dataToUpdate = ctx.request.body;
-      console.log(dataToUpdate)
 
       if (
         dataToUpdate?.hasOwnProperty("provider") ||
@@ -128,8 +121,29 @@ module.exports = (plugin) => {
 
       ctx.body = { message: "OK" };
     } catch (error) {
-      console.log("Updating User Error")
-      console.log(error)
+      console.log("Updating User Error");
+      console.log(error);
+      ctx.internalServerError(error);
+    }
+  };
+
+  plugin.controllers.user.team = async (ctx) => {
+    try {
+      const res = await strapi.entityService.findMany(
+        "plugin::users-permissions.user",
+        {
+          fields: ["id", "name", "spiritualName", "qualification"],
+          filters: { isCoordinator: true },
+          populate: {
+            avatar: {
+              fields: ["url"],
+            },
+          },
+        }
+      );
+
+      ctx.body = res
+    } catch (error) {
       ctx.internalServerError(error);
     }
   };
@@ -147,6 +161,14 @@ module.exports = (plugin) => {
       method: "PUT",
       path: "/users/update/me",
       handler: "user.updateMe",
+      config: {
+        prefix: "",
+      },
+    },
+    {
+      method: "GET",
+      path: "/team",
+      handler: "user.team",
       config: {
         prefix: "",
       },
