@@ -139,10 +139,13 @@ module.exports = (plugin) => {
               fields: ["url"],
             },
           },
+          sort: {
+            teamPriority: "desc",
+          },
         }
       );
 
-      ctx.body = res
+      ctx.body = res;
     } catch (error) {
       ctx.internalServerError(error);
     }

@@ -728,6 +728,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     qualification: Attribute.String;
     gender: Attribute.Enumeration<['male', 'female']>;
     isCoordinator: Attribute.Boolean & Attribute.DefaultTo<false>;
+    teamPriority: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

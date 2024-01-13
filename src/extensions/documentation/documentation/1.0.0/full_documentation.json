@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-01-13T07:50:56.251Z"
+    "x-generation-date": "2024-01-13T14:59:39.919Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1066,6 +1066,9 @@
                       },
                       "isCoordinator": {
                         "type": "boolean"
+                      },
+                      "teamPriority": {
+                        "type": "integer"
                       },
                       "createdAt": {
                         "type": "string",
@@ -3662,6 +3665,9 @@
                       "isCoordinator": {
                         "type": "boolean"
                       },
+                      "teamPriority": {
+                        "type": "integer"
+                      },
                       "createdAt": {
                         "type": "string",
                         "format": "date-time"
@@ -5232,6 +5238,9 @@
                         "isCoordinator": {
                           "type": "boolean"
                         },
+                        "teamPriority": {
+                          "type": "integer"
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -6490,6 +6499,9 @@
                       },
                       "isCoordinator": {
                         "type": "boolean"
+                      },
+                      "teamPriority": {
+                        "type": "integer"
                       },
                       "createdAt": {
                         "type": "string",
@@ -8042,6 +8054,9 @@
                                   "isCoordinator": {
                                     "type": "boolean"
                                   },
+                                  "teamPriority": {
+                                    "type": "integer"
+                                  },
                                   "createdAt": {
                                     "type": "string",
                                     "format": "date-time"
@@ -9452,6 +9467,9 @@
                                               },
                                               "isCoordinator": {
                                                 "type": "boolean"
+                                              },
+                                              "teamPriority": {
+                                                "type": "integer"
                                               },
                                               "createdAt": {
                                                 "type": "string",
@@ -10882,6 +10900,9 @@
                       },
                       "isCoordinator": {
                         "type": "boolean"
+                      },
+                      "teamPriority": {
+                        "type": "integer"
                       },
                       "createdAt": {
                         "type": "string",

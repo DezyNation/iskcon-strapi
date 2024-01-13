@@ -138,6 +138,9 @@
     "isCoordinator": {
       "type": "boolean",
       "default": false
+    },
+    "teamPriority": {
+      "type": "integer"
     }
   }
 }
