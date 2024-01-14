@@ -41,7 +41,7 @@ module.exports = {
     );
 
     if (!botData?.chats) return true;
-    strapi.service("api::telegram-bot.telegram-bot").triggerService({
+    await strapi.service("api::telegram-bot.telegram-bot").triggerService({
       method: "post",
       endpoint: "sendMessage",
       body: {
@@ -49,7 +49,7 @@ module.exports = {
         text: message,
       },
     });
-    
+
     return true;
   },
 };
