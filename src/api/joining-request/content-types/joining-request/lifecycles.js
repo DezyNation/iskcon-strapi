@@ -17,7 +17,7 @@ module.exports = {
           markdown += "  ".repeat(depth);
 
           // Format key and value on the same line
-          markdown += `${key}: ${value}  \n`;
+          markdown += `${key}: ${value}\n`;
         }
       }
 
@@ -32,16 +32,21 @@ module.exports = {
       }
     );
 
-    if (!botData?.chats) return true;
-    await strapi.service("api::telegram-bot.telegram-bot").triggerService({
-      method: "post",
-      endpoint: "sendMessage",
-      body: {
-        chat_id: botData?.chats?.notificationsGroupChatId,
-        text: message,
-      },
-    });
-
-    return true;
+    if (!botData?.chats?.notificationsGroupStatus) return true;
+    try {
+      await strapi.service("api::telegram-bot.telegram-bot").triggerService({
+        method: "post",
+        endpoint: "sendMessage",
+        body: {
+          chat_id: botData?.chats?.notificationsGroupChatId,
+          text: message,
+        },
+      });
+      return true;
+    } catch (error) {
+      console.log("Error while sending form notification");
+      console.log(error);
+      return true;
+    }
   },
 };
