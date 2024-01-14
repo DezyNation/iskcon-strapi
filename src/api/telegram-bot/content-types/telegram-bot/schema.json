@@ -1,0 +1,47 @@
+{
+  "kind": "singleType",
+  "collectionName": "telegram_bots",
+  "info": {
+    "singularName": "telegram-bot",
+    "pluralName": "telegram-bots",
+    "displayName": "Telegram Bot",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "chats": {
+      "type": "json"
+    },
+    "status": {
+      "type": "boolean",
+      "default": true
+    },
+    "welcomeMessage": {
+      "type": "richtext"
+    },
+    "maleCoordinators": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "femaleCoordinators": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "gsdPrabhuji": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "pastGroups": {
+      "type": "json"
+    },
+    "repeatWelcomeMessage": {
+      "type": "richtext"
+    }
+  }
+}

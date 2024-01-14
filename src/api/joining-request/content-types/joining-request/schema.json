@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "joining_requests",
+  "info": {
+    "singularName": "joining-request",
+    "pluralName": "joining-requests",
+    "displayName": "Joining Request"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "about": {
+      "type": "text"
+    },
+    "hadPastAssociation": {
+      "type": "boolean"
+    },
+    "previousTempleName": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "telegramId": {
+      "type": "string"
+    }
+  }
+}

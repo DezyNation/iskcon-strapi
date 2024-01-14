@@ -1009,6 +1009,42 @@ export interface ApiElectionControlElectionControl extends Schema.SingleType {
   };
 }
 
+export interface ApiJoiningRequestJoiningRequest extends Schema.CollectionType {
+  collectionName: 'joining_requests';
+  info: {
+    singularName: 'joining-request';
+    pluralName: 'joining-requests';
+    displayName: 'Joining Request';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    reference: Attribute.String;
+    about: Attribute.Text;
+    hadPastAssociation: Attribute.Boolean;
+    previousTempleName: Attribute.String;
+    country: Attribute.String;
+    phone: Attribute.String;
+    telegramId: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::joining-request.joining-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::joining-request.joining-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPostPost extends Schema.CollectionType {
   collectionName: 'posts';
   info: {
@@ -1190,6 +1226,55 @@ export interface ApiSessionParticipantSessionParticipant
   };
 }
 
+export interface ApiTelegramBotTelegramBot extends Schema.SingleType {
+  collectionName: 'telegram_bots';
+  info: {
+    singularName: 'telegram-bot';
+    pluralName: 'telegram-bots';
+    displayName: 'Telegram Bot';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    chats: Attribute.JSON;
+    status: Attribute.Boolean & Attribute.DefaultTo<true>;
+    welcomeMessage: Attribute.RichText;
+    maleCoordinators: Attribute.Relation<
+      'api::telegram-bot.telegram-bot',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    femaleCoordinators: Attribute.Relation<
+      'api::telegram-bot.telegram-bot',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    gsdPrabhuji: Attribute.Relation<
+      'api::telegram-bot.telegram-bot',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    pastGroups: Attribute.JSON;
+    repeatWelcomeMessage: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::telegram-bot.telegram-bot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::telegram-bot.telegram-bot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiTempleTemple extends Schema.CollectionType {
   collectionName: 'temples';
   info: {
@@ -1315,10 +1400,12 @@ declare module '@strapi/types' {
       'api::country.country': ApiCountryCountry;
       'api::course.course': ApiCourseCourse;
       'api::election-control.election-control': ApiElectionControlElectionControl;
+      'api::joining-request.joining-request': ApiJoiningRequestJoiningRequest;
       'api::post.post': ApiPostPost;
       'api::question.question': ApiQuestionQuestion;
       'api::session.session': ApiSessionSession;
       'api::session-participant.session-participant': ApiSessionParticipantSessionParticipant;
+      'api::telegram-bot.telegram-bot': ApiTelegramBotTelegramBot;
       'api::temple.temple': ApiTempleTemple;
       'api::volunteer.volunteer': ApiVolunteerVolunteer;
       'api::vote.vote': ApiVoteVote;
