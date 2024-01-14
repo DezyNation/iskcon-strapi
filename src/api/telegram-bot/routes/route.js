@@ -1,7 +1,7 @@
 module.exports = {
   routes: [
     {
-      method: "POST",
+      method: ["POST", "GET"],
       path: "/tg-bot/webhook",
       handler: "telegram-bot.webhookResponse",
       config: {

@@ -30,7 +30,7 @@ module.exports = createCoreService(
         }
         return res;
       } catch (error) {
-        console.log(error?.response);
+        console.log(error);
         throw new Error("Error occured while triggering Telegram Bot API");
       }
     },
