@@ -19,6 +19,7 @@
     "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "better-sqlite3": "8.5.0",
+    "moment-timezone": "^0.5.44",
     "mysql2": "^3.6.0",
     "patch-package": "^8.0.0",
     "pusher": "5.1.3",
