@@ -15,21 +15,22 @@ module.exports = createCoreService(
       try {
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const { method, body, queryParams, endpoint } = ctx;
-
-        const res =
-          method == "post"
-            ? await axios.post(
-                `https://api.telegram.org/bot${token}/${endpoint}`,
-                {
-                  ...body,
-                }
-              )
-            : await axios.get(
-                `https://api.telegram.org/bot${token}/${endpoint}`
-              );
+        let res;
+        if (method == "post") {
+          res = await axios.post(
+            `https://api.telegram.org/bot${token}/${endpoint}`,
+            {
+              ...body,
+            }
+          );
+        } else {
+          res = await axios.get(
+            `https://api.telegram.org/bot${token}/${endpoint}`
+          );
+        }
         return res;
       } catch (error) {
-        console.log(error);
+        console.log(error?.response);
         throw new Error("Error occured while triggering Telegram Bot API");
       }
     },
