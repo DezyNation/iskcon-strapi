@@ -140,7 +140,7 @@ module.exports = (plugin) => {
             },
           },
           sort: {
-            teamPriority: "desc",
+            teamPriority: "asc",
           },
         }
       );

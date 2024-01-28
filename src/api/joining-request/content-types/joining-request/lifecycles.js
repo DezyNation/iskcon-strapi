@@ -32,7 +32,7 @@ module.exports = {
       }
     );
 
-    if (!botData?.chats?.notificationsGroupStatus) return true;
+    if (!botData?.chats?.notificationsGroupStatus) return;
     try {
       await strapi.service("api::telegram-bot.telegram-bot").triggerService({
         method: "post",
