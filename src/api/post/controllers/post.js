@@ -30,7 +30,7 @@ module.exports = createCoreController("api::post.post", ({ strapi }) => ({
   getAllPosts: async (ctx, next) => {
     try {
       const result = await strapi.entityService.findMany("api::post.post", {
-        fields: ["description", "createdAt"],
+        fields: ["createdAt", "overview", "title"],
         populate: {
           creator: {
             fields: ["id", "name", "username"],
@@ -58,6 +58,22 @@ module.exports = createCoreController("api::post.post", ({ strapi }) => ({
       console.log("Error while creating new post ");
       console.log(error);
       ctx.response.body = error;
+    }
+  },
+  viewPost: async (ctx, next) => {
+    try {
+      const { id } = ctx.params;
+      const res = await strapi.entityService.findOne("api::post.post", id, {
+        fields: ["title", "overview", "description", "createdAt"],
+        populate: {
+          banner: {
+            fields: ["url"],
+          },
+        },
+      });
+      ctx.body = res;
+    } catch (error) {
+      ctx.internalServerError = error;
     }
   },
   likePost: async (ctx) => {

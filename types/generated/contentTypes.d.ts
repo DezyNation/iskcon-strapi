@@ -1055,10 +1055,8 @@ export interface ApiPostPost extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    populateCreatorFields: true;
   };
   attributes: {
-    description: Attribute.RichText;
     reactions: Attribute.Relation<
       'api::post.post',
       'oneToMany',
@@ -1069,11 +1067,19 @@ export interface ApiPostPost extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    media: Attribute.Media;
+    description: Attribute.Blocks;
+    title: Attribute.String;
+    overview: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    banner: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'>;
-    updatedBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'>;
+    createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
   };
 }
 

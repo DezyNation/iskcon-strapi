@@ -11,6 +11,15 @@ module.exports = {
     },
     {
       method: "GET",
+      path: "/article/view/:id",
+      handler: "post.viewPost",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
+    {
+      method: "GET",
       path: "/posts/view/all",
       handler: "post.getAllPosts",
       config: {

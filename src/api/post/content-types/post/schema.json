@@ -8,14 +8,10 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": false,
-    "populateCreatorFields": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "description": {
-      "type": "richtext"
-    },
     "reactions": {
       "type": "relation",
       "relation": "oneToMany",
@@ -26,16 +22,25 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "media": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
+    "description": {
+      "type": "blocks"
+    },
+    "title": {
+      "type": "string"
+    },
+    "overview": {
+      "type": "text",
+      "maxLength": 200
+    },
+    "banner": {
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ]
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
